@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaRegCheckSquare } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {Helmet} from 'react-helmet-async'
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const [showPassword, setshowPassword] = useState(false);
@@ -9,6 +12,7 @@ const SignUp = () => {
   const [confirmPassword, setconfirmPassword] = useState(null)
   const [confirmShowPassword, setConfirmShowPassword] = useState(false)
   const [submitDisable, setSubmitDisable] = useState(false)
+  const navigate = useNavigate()
   const [passwordStates, setPasswordStates] = useState({
     uppercase: false,
     lowercase: false,
@@ -17,6 +21,10 @@ const SignUp = () => {
     min: false,
     max: true,
   });
+  const { createUser, updateUserProfile } = useAuth();
+  const baseUrl = import.meta.env.VITE_baseUrl
+
+
 
   const passwordChangeHandler = (event) => {  
     const value = event.target.value;
@@ -126,13 +134,66 @@ const SignUp = () => {
     setconfirmPassword(event.target.value);   
  }
 
+ /**
+  * ************create user email password ******************
+  */
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    const name = data.name 
+    const email = data.email 
+    const password = data.password
+    const photo = data.photo 
+    const gender = data.gender 
+    const phone = data.phone 
+    const role = data.role 
+    const userData = { name, email, password, photo, gender, phone, role };
+   
+    createUser(email, password)
+    .then((res)=> {
+      const newUser = res.user;
+      const newEmail = newUser.email
+      const newName  = newUser.displayname 
+
+      updateUserProfile(newName, photo)
+      .then(()=> {       
+    
+         fetch(`${baseUrl}/users`, {
+           method: "POST",
+           headers: {
+             "Content-Type": "application/json",
+           },
+           body: JSON.stringify(userData),
+         })
+           .then((res) => res.json())
+           .then((data) => {
+            console.log(data);
+             if (data.insertedId) {
+               Swal.fire({
+                 title: "User Profile Successfully Created",
+               }).then(() => {
+                 reset();
+                 navigate("/");
+               });
+             }
+           });
+      })      
+     
+    })
+    .catch((error)=> {
+      console.log(error);
+     // const errorCode = error.code;
+     // const errorMessage = error.message;
+     Swal.fire({
+       title: `User already exists in firebase`,
+       icon: "error",
+       position: "top-right",
+     });
+    })
   };
 
   useEffect(() => {
@@ -146,6 +207,9 @@ const SignUp = () => {
 
   return (
     <div className="siteContainer p-2">
+      <Helmet>
+        <title> Sgin Up | Lingua Campa </title>
+      </Helmet>
       <div className="w-full lg:w-1/2 mx-auto">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="card-body">
@@ -163,6 +227,7 @@ const SignUp = () => {
                 className="input input-bordered text-xl"
               />
             </div>
+            {errors.name && <div className="text-red-400">Name is required</div>}
             {/* #email */}
             <div className="form-control">
               <label className="label text-xl">
@@ -250,6 +315,18 @@ const SignUp = () => {
                   Forgot password?
                 </a>
               </label> */}
+            </div>
+            {/* #photo url */}
+            <div className="py-2">
+              <label className="label text-xl">
+                <span className="label-text text-xl">Photo Url</span>
+              </label>
+              <input
+                {...register("photo")}
+                type="text"
+                className="input input-bordered w-full"
+                placeholder="Photo Url"
+              />
             </div>
             {/* #gender */}
             <div className="py-2  flex gap-2">

@@ -9,6 +9,7 @@ import { AuthContext } from "../../../Provider/AuthProvider/AuthProvider";
 const Navbar = () => {
     const {isDark} = useContext(DarkContext)
     const {user} = useContext(AuthContext)
+    console.log(user);
 
   const navList = (
     <>
@@ -78,7 +79,7 @@ const Navbar = () => {
                 {/* use info */}
                 <div className="relative z-1">
                   {user ? (
-                    user
+                    user?.displayName
                   ) : (
                     <Link to="/login" className="btn-yellow1 relative rounded-lg py-2 px-4">
                       Login

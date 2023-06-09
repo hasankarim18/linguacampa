@@ -5,13 +5,16 @@ import AuthProvider from './Provider/AuthProvider/AuthProvider.jsx'
 import { RouterProvider } from 'react-router-dom'
 import router from './Routes/Routes.jsx'
 import DarkModeProvider from './Provider/AuthProvider/DarkModeProvider'
+import { HelmetProvider } from "react-helmet-async";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.Fragment>
-    <DarkModeProvider>
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
-    </DarkModeProvider>
+    <HelmetProvider>
+      <DarkModeProvider>
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
+      </DarkModeProvider>
+    </HelmetProvider>
   </React.Fragment>
 );
