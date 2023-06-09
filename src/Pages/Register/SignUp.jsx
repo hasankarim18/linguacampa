@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const SignUp = () => {
   const [showPassword, setshowPassword] = useState(false);
   const [password, setPassword] = useState('')
+  const [confirmPassword, setconfirmPassword] = useState(null)
   const [confirmShowPassword, setConfirmShowPassword] = useState(false)
   const [submitDisable, setSubmitDisable] = useState(false)
   const [passwordStates, setPasswordStates] = useState({
@@ -122,7 +123,7 @@ const SignUp = () => {
   };
 
  const confirmPasswordChangeHandler = (event)=> {
-    setConfirmShowPassword(event.target.value)   
+    setconfirmPassword(event.target.value);   
  }
 
   const {
@@ -135,12 +136,12 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if(password === confirmShowPassword){
-        setSubmitDisable(true)
-    }else {
-        setSubmitDisable(false)
+    if (password === confirmPassword) {
+      setSubmitDisable(true);
+    } else {
+      setSubmitDisable(false);
     }
-  }, [password, confirmShowPassword])
+  }, [password, confirmPassword]);
   
 
   return (
@@ -151,7 +152,7 @@ const SignUp = () => {
             {/* #name */}
             <div className="form-control">
               <label className="label text-xl">
-                <span className="label-text">Name</span>
+                <span className="label-text">Name*</span>
               </label>
               <input
                 type="text"
@@ -165,7 +166,7 @@ const SignUp = () => {
             {/* #email */}
             <div className="form-control">
               <label className="label text-xl">
-                <span className="label-text">Email</span>
+                <span className="label-text">Email*</span>
               </label>
               <input
                 type="text"
@@ -183,7 +184,7 @@ const SignUp = () => {
             {/* #password */}
             <div className="form-control">
               <label className="label text-xl">
-                <span className="label-text text-xl">Password</span>
+                <span className="label-text text-xl">Password*</span>
               </label>
               <div className="relative">
                 <input
@@ -220,7 +221,7 @@ const SignUp = () => {
             {/* #confirmPassword */}
             <div className="form-control">
               <label className="label text-xl">
-                <span className="label-text text-xl">Confirm Password</span>
+                <span className="label-text text-xl">Confirm Password*</span>
               </label>
               <div className="relative">
                 <input
@@ -244,11 +245,64 @@ const SignUp = () => {
               {!submitDisable && (
                 <div className="py-2 text-red-400">Password did Not match</div>
               )}
-              <label className="label">
-                {/* <a href="#" className="label-text-alt link link-hover">
+              {/* <label className="label">
+                <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
-                </a> */}
-              </label>
+                </a>
+              </label> */}
+            </div>
+            {/* #gender */}
+            <div className="py-2  flex gap-2">
+              <span>Gender</span>
+              <input
+                id="male"
+                {...register("gender")}
+                value="male"
+                type="radio"
+              />
+              <label htmlFor="male">Male</label>
+              <input
+                id="female"
+                {...register("gender")}
+                value="female"
+                type="radio"
+              />
+              <label htmlFor="female">Female</label>
+              <input
+                id="other"
+                {...register("gender")}
+                value="other"
+                type="radio"
+              />
+              <label htmlFor="other">Other</label>
+            </div>
+            {/* #phone */}
+            <div className="py-2">
+              <span>Phone</span>
+              <input
+                className="input input-bordered ms-2"
+                type="text"
+                {...register("phone")}
+              />
+            </div>
+            {/* #role */}
+            <div className="py-2">
+              <div>
+                <span className="text-xl mb-1 inline-block">Sign Is As</span>
+                <span> (default Student) </span>
+              </div>
+              <select
+                defaultValue="student"
+                className="select  select-bordered w-full "
+                {...register("role")}
+              >
+                <option className="text-xl" value="student" key="1">
+                  Student
+                </option>
+                <option className="text-xl" value="insturctor" key="2">
+                  Instructor
+                </option>
+              </select>
             </div>
             <div className="form-control">
               <button
@@ -267,7 +321,6 @@ const SignUp = () => {
                 to="/login"
                 className="underline font-semibold text-blue-400"
               >
-                {" "}
                 Login{" "}
               </Link>
             </div>
