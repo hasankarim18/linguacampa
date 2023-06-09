@@ -13,7 +13,7 @@ const DarkModeProvider = ({children}) => {
 
     return (
       <DarkContext.Provider value={mode}>
-        <div className={!isDark? 'dark': ''}>{children}</div>
+        <div className={isDark? 'dark': ''}>{children}</div>
       </DarkContext.Provider>
     );
 };

@@ -13,10 +13,13 @@ const AuthProvider = ({children}) => {
   //  console.log(auth)
 
  
-    const user = 'hasan'
+    const user = undefined
+    const loading = false
 
     const userInfo = {
         user,
+        auth, 
+        loading
       
     }
     

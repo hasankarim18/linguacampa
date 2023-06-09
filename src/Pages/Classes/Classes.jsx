@@ -3,7 +3,7 @@
 const Classes = () => {
     return (
         <div>
-            
+            All classes
         </div>
     );
 };

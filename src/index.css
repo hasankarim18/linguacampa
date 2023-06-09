@@ -3,9 +3,88 @@
 @tailwind utilities;
 
 
+/* 
+     yellow1: "#FEE100",
+        yellow2: "#E4CA00",
+*/
+
+:root {
+    --yellow1: #FEE100;
+    --yellow2: #E4CA00;
+    --darkNavyBlue:#1E293B;
+}
+
+
 @layer components {
  .siteContainer {
     @apply container mx-auto px-2 md:px-0;
+    transition: all 500ms ease;
 }
+
+.btn-yellow1{
+    background-color: var(--yellow1);
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 26px;
+    font-weight: 700;   
+    text-align: center;
+    padding: 12px 38px;
+    text-transform: uppercase;
+    z-index: 1;
+    transition: all 500ms ease;
+    color:var(--darkNavyBlue);
+    letter-spacing: 1px;
+    
+}
+
+.btn-yellow1::before {
+    background-color: var(--darkNavyBlue);
+    position: absolute;
+    content: '';
+    width: 0%;
+    height: 100%;
+    right: 0px;
+    top: 0px;
+    opacity: 0.1;
+    z-index: -1;
+    transition: all 500ms ease;
+  
+}
+
+.btn-yellow1:hover::before{
+    width: 100%;
+    left: 0;
+}
+
+.header_nav .nav_item {
+    @apply text-xl font-semibold dark:hover:text-yellow2 ;
+}
+
+.header_nav .active{
+    color:var(--yellow1)!important;
+    background-color: transparent!important;
+    color: black;
+    @apply hover:bg-transparent;
+}
+
+.dash_menu li {
+    @apply mb-2;
+}
+
+.dash_menu li a:hover{
+    cursor: pointer;
+    color:var(--yellow1)
+}
+
+
+
+
+
+
+
+
 }
 
