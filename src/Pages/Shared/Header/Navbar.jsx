@@ -49,16 +49,21 @@ const Navbar = () => {
                 <div className="flex-none lg:hidden">
                   <label
                     htmlFor="my-drawer-3"
-                    className="cursor-pointer hover:text-yellow1 transition-all duration-500 text-2xl"
+                    className="cursor-pointer
+                    mt-2
+                      hover:text-yellow1 
+                     transition-all 
+                     duration-500
+                      text-2xl"
                   >
                     <FaBars />
                   </label>
                 </div>
-                <div className="flex-1 px-2 mx-2">
+                <div className="flex-1 ">
                   <Link to="/">
                     {" "}
                     <img
-                      className="w-32"
+                      className="w-32 lg:-ml-1 ml-4"
                       src={`${isDark ? "/4.png" : "/3.png"}`}
                       alt=""
                     />

@@ -19,6 +19,7 @@
  .siteContainer {
     @apply container mx-auto px-2 md:px-0;
     transition: all 500ms ease;
+   
 }
 
 .btn-yellow1{
@@ -37,6 +38,7 @@
     transition: all 500ms ease;
     color:var(--darkNavyBlue);
     letter-spacing: 1px;
+    position: relative;
     
 }
 
@@ -52,6 +54,11 @@
     z-index: -1;
     transition: all 500ms ease;
   
+}
+
+.btn-yellow1:disabled{
+    background-color: gray;
+    cursor: not-allowed;
 }
 
 .btn-yellow1:hover::before{
