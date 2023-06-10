@@ -5,7 +5,7 @@ import Home from "../Pages/Home/Home";
 import ErrorPage from "../Pages/Error/ErrorPage";
 import Instructors from "../Pages/Instructors/Instructors";
 import Classes from "../Pages/Classes/Classes";
-import AdminHome from "../Layout/DashBoard/DashPages/DashHome/AdminHome";
+import AdminHome from "../Layout/DashBoard/DashPages/AdminPages/AdminHome";
 import StudentsHome from "../Layout/DashBoard/DashPages/DashHome/StudentsHome";
 import InstructorHome from "../Layout/DashBoard/DashPages/DashHome/InstructorHome";
 import Login from "../Pages/Register/Login";
@@ -14,6 +14,9 @@ import PivateRoute from "./PivateRoute";
 import AdminRoute from "./AdminRoute";
 import StudentRoute from "./StudentRoute";
 import InstructorRoute from "./InstructorRoute";
+import ManageClasses from "../Layout/DashBoard/DashPages/AdminPages/ManageClasses";
+import ManageUsers from "../Layout/DashBoard/DashPages/AdminPages/ManageUsers";
+import AdminProfile from "../Layout/DashBoard/DashPages/AdminPages/AdminProfile";
 // import RegisterRoute from "./RegisterRoute";
 
 
@@ -53,6 +56,7 @@ const router = createBrowserRouter([
       </PivateRoute>
     ),
     children: [
+      // admin
       {
         path: "adminHome",
         element: (
@@ -60,6 +64,22 @@ const router = createBrowserRouter([
             <AdminHome />
           </AdminRoute>
         ),
+      },
+      {
+        path: "manageClasses",
+        element: (
+          <AdminRoute>
+            <ManageClasses />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manageUsers",
+        element:<AdminRoute> <ManageUsers /> </AdminRoute>
+      },
+      {
+        path:"adminProfile",
+        element:<AdminRoute> <AdminProfile /> </AdminRoute>
       },
       {
         path: "instructorHome",

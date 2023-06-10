@@ -78,12 +78,22 @@
 }
 
 .dash_menu li {
-    @apply mb-2;
+    @apply mb-2 w-full;
+}
+
+
+
+.dash_menu li a {
+    @apply p-2 w-full items-center gap-2 font-semibold flex  ;
 }
 
 .dash_menu li a:hover{
-    cursor: pointer;
-    color:var(--yellow1)
+    @apply text-darkNavyBlue bg-yellow1;
+}
+
+
+.dash_menu .active{
+    @apply bg-yellow1 p-2 w-full flex items-center gap-2 text-darkNavyBlue font-semibold;
 }
 
 

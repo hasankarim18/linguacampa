@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import SocialLogin from "./SocialLogin";
 import PasswordStateDetails from "./PasswordStateDetails";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const [showPassword, setshowPassword] = useState(false)
@@ -130,7 +131,7 @@ const Login = () => {
      } = useForm();
      const onSubmit = (data) => {
       setDisable(true)
-        console.log(data);
+       
         loginUser(data.email, data.password)
         .then(()=> {
         //  setLoading(false)
@@ -138,7 +139,10 @@ const Login = () => {
           navigate(from);
         })
         .catch((error)=> {
-          console.log(error);
+          Swal.fire({
+            title:`Error Login ${error.message}`
+          })
+         // console.log(error);
           setDisable(false)
         })
      };

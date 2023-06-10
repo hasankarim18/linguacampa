@@ -11,27 +11,28 @@ import useRole from "../../../Hooks/useRole";
 
 const Navbar = () => {
     const {isDark} = useContext(DarkContext)
-    const {user, logout} = useAuth()
+    const {user, logout , setUser} = useAuth()
     const [role, isRoleLoading] = useRole()
     const navigate = useNavigate()   
 
-    const handleLogout = () => {
-   
+    const handleLogout = () => {   
+      console.log('logout fire', user);
       logout()
         .then(() => {
-           Swal.fire({
-             title: "Please Login",
-             icon: "success",
-           });
-          navigate('/login')
-          
+          // Sign-out successful.
+          console.log('logout success fulll');
+         
+          Swal.fire({
+            title:"Successfully Logout",
+            icon:'success'
+          })
+           navigate("/");
         })
         .catch(() => {
           // An error happened.
-          Swal.fire({
-            title:'Something went wrong! Logout failed.',
-            icon:'error'
-          })
+          console.log('l failed')
+
+
         });
     };
   

@@ -24,7 +24,7 @@ const DashMenu = () => {
         {!isRoleLoading && (
           <ul className="h-full dash_menu capitalize text-white mt-4 text-xl ">
             {/* Sidebar content here */}
-            <li>
+            <li className="text-yellow1">
               {user.displayName} <sub className="text-red-400">{role}</sub>{" "}
             </li>
             {/* admin menu */}

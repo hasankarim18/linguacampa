@@ -35,6 +35,8 @@ const AuthProvider = ({children}) => {
          })
       }    
     } else {
+       setUser(null)
+      // setLoading(false)
         localStorage.removeItem("linguaCampa_access_token");        
     }
   });
@@ -73,11 +75,10 @@ const AuthProvider = ({children}) => {
        return signInWithPopup(auth, googleProvider);
      };
 
-     const logout = ()=> {       
-       //  setLoading(true);
-         return signOut(auth);
-       
-     }
+      const logout = () => {
+        setLoading(true);
+        return signOut(auth);
+      };
 
  
     
