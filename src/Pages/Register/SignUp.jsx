@@ -5,14 +5,20 @@ import { Link, useNavigate } from "react-router-dom";
 import {Helmet} from 'react-helmet-async'
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import SimpleBackdrop from "../../Utils/SimpleBackDrop";
 
 const SignUp = () => {
   const [showPassword, setshowPassword] = useState(false);
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setconfirmPassword] = useState(null)
-  const [confirmShowPassword, setConfirmShowPassword] = useState(false)
-  const [submitDisable, setSubmitDisable] = useState(false)
-  const navigate = useNavigate()
+  const [userName, setUserName] = useState("");
+  const [userEmail, setuserEmail] = useState("");
+  const [userPhoto, setUserPhoto] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState(null);
+  const [confirmShowPassword, setConfirmShowPassword] = useState(false);
+  const [submitDisable, setSubmitDisable] = useState(false);
+  const [backDrop, setBackDrop] = useState(false);
+
+  const navigate = useNavigate();
   const [passwordStates, setPasswordStates] = useState({
     uppercase: false,
     lowercase: false,
@@ -22,13 +28,14 @@ const SignUp = () => {
     max: true,
   });
   const { createUser, updateUserProfile } = useAuth();
-  const baseUrl = import.meta.env.VITE_baseUrl
+  const baseUrl = import.meta.env.VITE_baseUrl;
 
+  
 
-
-  const passwordChangeHandler = (event) => {  
+  /** do not touch */
+  const passwordChangeHandler = (event) => {
     const value = event.target.value;
-      setPassword(value);
+    setPassword(value);
     if (/[a-z]/.test(value)) {
       setPasswordStates((prevState) => ({
         ...prevState,
@@ -122,6 +129,11 @@ const SignUp = () => {
     }
   };
 
+  const confirmPasswordChangeHandler = (event) => {
+    setconfirmPassword(event.target.value);
+  };
+  /** do not touch */
+
   const handleShowPassword = () => {
     setshowPassword((prev) => !prev);
   };
@@ -130,13 +142,18 @@ const SignUp = () => {
     setConfirmShowPassword((prev) => !prev);
   };
 
- const confirmPasswordChangeHandler = (event)=> {
-    setconfirmPassword(event.target.value);   
- }
+  /************** Back drop during sign up */
 
- /**
-  * ************create user email password ******************
-  */
+  const handleBackdropClose = () => {
+    setBackDrop(false);
+  };
+  const handleBackdropOpen = () => {
+    setBackDrop(true);
+  };
+
+  /**
+   * ************create user email password ******************
+   */
   const {
     register,
     reset,
@@ -144,94 +161,117 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    const name = data.name 
-    const email = data.email 
-    const password = data.password
-    const photo = data.photo 
-    const gender = data.gender 
-    const phone = data.phone 
-    const role = data.role 
+    const name = data.name;
+    const email = data.email;
+    const password = data.password;
+    const photo = data.photo;
+    const gender = data.gender;
+    const phone = data.phone;
+    const role = data.role;
     const userData = { name, email, password, photo, gender, phone, role };
-   
+    handleBackdropOpen()
     createUser(email, password)
-    .then((res)=> {
-      const newUser = res.user;
-      const newEmail = newUser.email
-      const newName  = newUser.displayname 
-
-      updateUserProfile(newName, photo)
-      .then(()=> {       
-    
-         fetch(`${baseUrl}/users`, {
-           method: "POST",
-           headers: {
-             "Content-Type": "application/json",
-           },
-           body: JSON.stringify(userData),
-         })
-           .then((res) => res.json())
-           .then((data) => {
-            console.log(data);
-             if (data.insertedId) {
-               Swal.fire({
-                 title: "User Profile Successfully Created",
-               }).then(() => {
+      .then(() => {
+        updateUserProfile(name, photo).then(() => {
+          fetch(`${baseUrl}/users`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              if (data.insertedId) {
+                 handleBackdropClose();
                  reset();
-                 navigate("/");
-               });
-             }
-           });
-      })      
-     
-    })
-    .catch((error)=> {
-      console.log(error);
-     // const errorCode = error.code;
-     // const errorMessage = error.message;
-     Swal.fire({
-       title: `User already exists in firebase`,
-       icon: "error",
-       position: "top-right",
-     });
-    })
+                Swal.fire({
+                  title: "User Profile Successfully Created",
+                }).then(() => {                 
+                  navigate("/");
+                });
+              }
+            })
+            .catch(() => {
+               handleBackdropClose();
+            });
+            // update to database
+        })
+        .then(()=> {
+          handleBackdropClose()
+        })
+        .catch(()=> {
+          handleBackdropClose()
+        })
+      })
+      .catch((error) => {        
+        console.log(error);
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+       handleBackdropClose();
+        Swal.fire({
+          title: `User already exists in firebase`,
+          icon: "error",
+          position: "top-right",
+        })
+        .then(()=> {
+           handleBackdropClose();
+        })
+        .catch(()=> {
+           handleBackdropClose();
+        })
+      });
   };
 
   useEffect(() => {
-    if (password === confirmPassword) {
-      setSubmitDisable(true);
-    } else {
-      setSubmitDisable(false);
+    if(userName !== '' && userEmail !== '' && userPhoto !== ''){
+      if (password === confirmPassword) {
+        setSubmitDisable(true);
+      } else {
+        setSubmitDisable(false);
+      }
+    }else {
+      setSubmitDisable(false)
     }
-  }, [password, confirmPassword]);
-  
+    
+  }, [password, confirmPassword, userName, userEmail, userPhoto]);
 
   return (
     <div className="siteContainer p-2">
+      
       <Helmet>
         <title> Sgin Up | Lingua Campa </title>
       </Helmet>
+    
+      <SimpleBackdrop open={backDrop} />
       <div className="w-full lg:w-1/2 mx-auto">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="card-body">
             {/* #name */}
             <div className="form-control">
               <label className="label text-xl">
-                <span className="label-text">Name*</span>
+                <span className="label-text text-xl">Name*</span>
               </label>
               <input
                 type="text"
                 placeholder="Name"
                 {...register("name", {
                   required: true,
+                  onChange: (e) => {
+                    setUserName(e.target.value);
+                  },
                 })}
                 className="input input-bordered text-xl"
               />
             </div>
-            {errors.name && <div className="text-red-400">Name is required</div>}
+            {errors.name && (
+              <div className="text-red-400">Name is required</div>
+            )}
             {/* #email */}
             <div className="form-control">
               <label className="label text-xl">
-                <span className="label-text">Email*</span>
+                <span className="label-text text-xl">Email*</span>
               </label>
               <input
                 type="text"
@@ -239,12 +279,15 @@ const SignUp = () => {
                 {...register("email", {
                   required: true,
                   pattern: /^\S+@\S+$/i,
+                  onChange: (e) => {
+                    setuserEmail(e.target.value);
+                  },
                 })}
                 className="input input-bordered text-xl"
               />
             </div>
             <div className="py-1 text-red-400">
-              {errors.email && "Email not valid"}
+              {errors.email && "Email format not valid"}
             </div>
             {/* #password */}
             <div className="form-control">
@@ -252,7 +295,9 @@ const SignUp = () => {
                 <span className="label-text text-xl">Password*</span>
               </label>
               <div className="relative">
+                {/* #inputpassword */}
                 <input
+                  defaultValue="@aA123"
                   type={showPassword ? "text" : "password"}
                   placeholder="password"
                   className="input input-bordered relative w-full text-xl"
@@ -290,6 +335,7 @@ const SignUp = () => {
               </label>
               <div className="relative">
                 <input
+                  defaultValue="@aA123"
                   onChange={confirmPasswordChangeHandler}
                   type={confirmShowPassword ? "text" : "password"}
                   placeholder="Confirm Password"
@@ -307,7 +353,7 @@ const SignUp = () => {
                   {confirmShowPassword ? <FaEyeSlash /> : <FaEye />}
                 </span>
               </div>
-              {!submitDisable && (
+              { password !== confirmPassword && (
                 <div className="py-2 text-red-400">Password did Not match</div>
               )}
               {/* <label className="label">
@@ -319,15 +365,23 @@ const SignUp = () => {
             {/* #photo url */}
             <div className="py-2">
               <label className="label text-xl">
-                <span className="label-text text-xl">Photo Url</span>
+                <span className="label-text text-xl">Photo Url*</span>
               </label>
               <input
-                {...register("photo")}
+                {...register("photo", {
+                  required: true,
+                  onChange: (e) => {
+                    setUserPhoto(e.target.value);
+                  },
+                })}
                 type="text"
                 className="input input-bordered w-full"
                 placeholder="Photo Url"
               />
             </div>
+            {errors.photo && (
+              <div className="text-red-400">Photo Url Required</div>
+            )}
             {/* #gender */}
             <div className="py-2  flex gap-2">
               <span>Gender</span>

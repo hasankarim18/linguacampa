@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaRegCheckSquare } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
     const [showPassword, setshowPassword] = useState(false)
+    const [disable, setDisable] = useState(false)
     const [passwordStates, setPasswordStates] = useState({
         uppercase: false,
         lowercase: false,
@@ -13,6 +15,10 @@ const Login = () => {
         min:false,
         max:true
     })
+    const { loginUser } = useAuth();
+    const navigate = useNavigate()
+    const location = useLocation()
+    let from = location.state?.from?.pathname || "/";
 
     const passwordChangeHandler = (event) => {
         
@@ -121,7 +127,18 @@ const Login = () => {
        formState: { errors },
      } = useForm();
      const onSubmit = (data) => {
+      setDisable(true)
         console.log(data);
+        loginUser(data.email, data.password)
+        .then(()=> {
+        //  setLoading(false)
+        setDisable(false)
+          navigate(from);
+        })
+        .catch((error)=> {
+          console.log(error);
+          setDisable(false)
+        })
      };
    
 
@@ -153,7 +170,8 @@ const Login = () => {
                 <span className="label-text text-xl">Password</span>
               </label>
               <div className="relative">
-                <input
+                <input 
+                  defaultValue="@aA123"
                   type={showPassword ? "text" : "password"}
                   placeholder="password"
                   className="input input-bordered relative w-full text-xl"
@@ -189,6 +207,7 @@ const Login = () => {
                 className="btn-yellow1 block relative cursor-pointer rounded-lg py-2 px-4"
                 type="submit"
                 value="Login"
+                disabled={disable}
               >
                 {" "}
                 Login{" "}

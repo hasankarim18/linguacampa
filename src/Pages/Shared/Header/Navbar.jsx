@@ -1,15 +1,42 @@
 import { useContext } from "react";
 import { DarkContext } from "../../../Provider/AuthProvider/DarkModeProvider";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink,  useNavigate } from "react-router-dom";
 import MobileNav from "./MobileNav";
 import { FaBars } from "react-icons/fa";
-import { AuthContext } from "../../../Provider/AuthProvider/AuthProvider";
+
+import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
 
 
 const Navbar = () => {
     const {isDark} = useContext(DarkContext)
-    const {user} = useContext(AuthContext)
-    console.log(user);
+    const {user, logout, setLoading} = useAuth()
+    const navigate = useNavigate()
+  
+    
+
+    const handleLogout = () => {
+      console.log('logout fire');
+      logout()
+        .then(() => {
+
+          console.log('logout success ful')
+           Swal.fire({
+             title: "Please Login",
+             icon: "success",
+           });
+          navigate('/login')
+          
+        })
+        .catch(() => {
+          // An error happened.
+          Swal.fire({
+            title:'Something went wrong! Logout failed.',
+            icon:'error'
+          })
+        });
+    };
+  
 
   const navList = (
     <>
@@ -79,9 +106,21 @@ const Navbar = () => {
                 {/* use info */}
                 <div className="relative z-1">
                   {user ? (
-                    user?.displayName
+                    <>
+                      {" "}
+                      <span>{user?.displayName}</span>{" "}
+                      <button
+                        onClick={handleLogout}
+                        className="btn-yellow1 relative rounded-lg py-2 px-4"
+                      >
+                        Logout
+                      </button>
+                    </>
                   ) : (
-                    <Link to="/login" className="btn-yellow1 relative rounded-lg py-2 px-4">
+                    <Link
+                      to="/login"
+                      className="btn-yellow1 relative rounded-lg py-2 px-4"
+                    >
                       Login
                     </Link>
                   )}

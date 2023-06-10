@@ -8,7 +8,7 @@ const PivateRoute = ({children}) => {
      const location = useLocation();
 
      if (loading) {
-       return <h1 className="text-5xl">Loading...</h1>;
+       return <h1 className="text-5xl">Loading.......</h1>;
      } else {
        if (user) {
          return <>{children}</>;

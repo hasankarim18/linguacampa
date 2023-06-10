@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState} from "react";
 import app from "../../../firebase.config";
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithPopup, updateProfile } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 
 export const AuthContext = createContext()
 
@@ -23,6 +23,8 @@ const AuthProvider = ({children}) => {
         // get and set token
         
       } else {
+        setUser(null)
+        setLoading(false)
         // User is signed out
         // ...
       //  localStorage.removeItem("flavor_fiesta_access_token");
@@ -40,6 +42,12 @@ const AuthProvider = ({children}) => {
     return createUserWithEmailAndPassword(auth, email,password)
   }
 
+  /** login with email and password */
+  const loginUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
   /** #update user */
     const updateUserProfile = (name, photourl) => {
       return updateProfile(auth.currentUser, {
@@ -56,6 +64,12 @@ const AuthProvider = ({children}) => {
        return signInWithPopup(auth, googleProvider);
      };
 
+     const logout = ()=> {       
+       //  setLoading(true);
+         return signOut(auth);
+       
+     }
+
  
     
     const userInfo = {
@@ -65,6 +79,8 @@ const AuthProvider = ({children}) => {
       createUser,
       updateUserProfile,
       googleSignIn,
+      logout,
+      loginUser,
     };
 
 
