@@ -37,6 +37,7 @@ const ManageUsers = () => {
               title: `Role changed successful`,
               icon: "success",
             });
+            refetch()
           }
 
           if(res.data.message === 'error'){

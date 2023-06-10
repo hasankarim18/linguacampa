@@ -7,7 +7,7 @@ import Instructors from "../Pages/Instructors/Instructors";
 import Classes from "../Pages/Classes/Classes";
 import AdminHome from "../Layout/DashBoard/DashPages/AdminPages/AdminHome";
 import StudentsHome from "../Layout/DashBoard/DashPages/DashHome/StudentsHome";
-import InstructorHome from "../Layout/DashBoard/DashPages/DashHome/InstructorHome";
+import InstructorHome from "../Layout/DashBoard/DashPages/InstructorPages/InstructorHome";
 import Login from "../Pages/Register/Login";
 import SignUp from "../Pages/Register/SignUp";
 import PivateRoute from "./PivateRoute";
@@ -17,6 +17,9 @@ import InstructorRoute from "./InstructorRoute";
 import ManageClasses from "../Layout/DashBoard/DashPages/AdminPages/ManageClasses";
 import ManageUsers from "../Layout/DashBoard/DashPages/AdminPages/ManageUsers";
 import AdminProfile from "../Layout/DashBoard/DashPages/AdminPages/AdminProfile";
+import AddClass from "../Layout/DashBoard/DashPages/InstructorPages/AddClass";
+import MyClasses from "../Layout/DashBoard/DashPages/InstructorPages/MyClasses";
+import MyClass from "../Layout/DashBoard/DashPages/InstructorPages/MyClass";
 // import RegisterRoute from "./RegisterRoute";
 
 
@@ -81,14 +84,26 @@ const router = createBrowserRouter([
         path:"adminProfile",
         element:<AdminRoute> <AdminProfile /> </AdminRoute>
       },
+      /** instructor route below */
       {
         path: "instructorHome",
         element: (
           <InstructorRoute>
-            {" "}
-            <InstructorHome />{" "}
+            <InstructorHome />
           </InstructorRoute>
         ),
+      },
+      {
+        path:'addClass',
+        element:<InstructorRoute> <AddClass /> </InstructorRoute>
+      }, 
+      {
+        path:"myClasses",
+        element:<InstructorRoute> <MyClasses /> </InstructorRoute>
+      },
+      {
+        path:'myClass',
+        element:<InstructorRoute> <MyClass /> </InstructorRoute>
       },
       {
         path: "studentHome",

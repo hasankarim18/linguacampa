@@ -11,7 +11,7 @@ import useRole from "../../../Hooks/useRole";
 
 const Navbar = () => {
     const {isDark} = useContext(DarkContext)
-    const {user, logout , setUser} = useAuth()
+    const {user, logout } = useAuth()
     const [role, isRoleLoading] = useRole()
     const navigate = useNavigate()   
 

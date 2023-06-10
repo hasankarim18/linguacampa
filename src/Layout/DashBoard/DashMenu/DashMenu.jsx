@@ -12,12 +12,6 @@ const DashMenu = () => {
   // const roles = ["super_admin", "admin", "instructors", "students"]
   const {user} = useAuth()
   const [role, isRoleLoading] = useRole();
-
-// console.log(role2);
-
- //  const role = 'admin';
-  
-   console.log(isRoleLoading);
     
     return (
       <div>
