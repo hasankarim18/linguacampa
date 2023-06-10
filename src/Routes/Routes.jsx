@@ -11,7 +11,10 @@ import InstructorHome from "../Layout/DashBoard/DashPages/DashHome/InstructorHom
 import Login from "../Pages/Register/Login";
 import SignUp from "../Pages/Register/SignUp";
 import PivateRoute from "./PivateRoute";
-import RegisterRoute from "./RegisterRoute";
+import AdminRoute from "./AdminRoute";
+import StudentRoute from "./StudentRoute";
+import InstructorRoute from "./InstructorRoute";
+// import RegisterRoute from "./RegisterRoute";
 
 
 const router = createBrowserRouter([
@@ -34,19 +37,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: (
-          <RegisterRoute>
-            <Login />{" "}
-          </RegisterRoute>
-        ),
+        element: <Login />,
       },
       {
         path: "/signup",
-        element: (
-          <RegisterRoute>
-            <SignUp />
-          </RegisterRoute>
-        ),
+        element: <SignUp />,
       },
     ],
   },
@@ -60,15 +55,28 @@ const router = createBrowserRouter([
     children: [
       {
         path: "adminHome",
-        element: <AdminHome />,
+        element: (
+          <AdminRoute>
+            <AdminHome />
+          </AdminRoute>
+        ),
       },
       {
         path: "instructorHome",
-        element: <InstructorHome />,
+        element: (
+          <InstructorRoute>
+            {" "}
+            <InstructorHome />{" "}
+          </InstructorRoute>
+        ),
       },
       {
         path: "studentHome",
-        element: <StudentsHome />,
+        element: (
+          <StudentRoute>
+            <StudentsHome />
+          </StudentRoute>
+        ),
       },
     ],
   },

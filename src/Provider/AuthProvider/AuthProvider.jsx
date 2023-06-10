@@ -2,6 +2,7 @@
 import { createContext, useEffect, useState} from "react";
 import app from "../../../firebase.config";
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import axios from "axios";
 
 export const AuthContext = createContext()
 
@@ -10,32 +11,40 @@ const AuthProvider = ({children}) => {
  const [user, setUser] = useState(null);
  const [loading, setLoading] = useState(true);
 
-    const auth = getAuth(app)
+ const auth = getAuth(app)
+
+ const baseUrl = import.meta.env.VITE_baseUrl;
   //  console.log(auth)
 
-  useEffect(() => {
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        //  setLoading(false);
-        setUser(user);
-        setLoading(false)
-        // get and set token
-        
-      } else {
-        setUser(null)
-        setLoading(false)
-        // User is signed out
-        // ...
-      //  localStorage.removeItem("flavor_fiesta_access_token");
-      }
+ useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
+  
+    if (user) {        
+      setUser(user);
+      // get and set token 
+      if(user){
+         axios.post(`${baseUrl}/jwt`, { email: user.email })
+         .then((res)=> {
+          const token = res.data.token 
+          localStorage.setItem("linguaCampa_access_token", token);
+          setLoading(false);
       
-    });
+         })
+         .catch((error)=> {
+          console.log(error);
+         })
+      }    
+    } else {
+        localStorage.removeItem("linguaCampa_access_token");        
+    }
+  });
 
-    return () => {
-      return unsubscribe();
-    };
-  }, [auth]);
+  return () => {
+      return  unsubscribe()
+  }
+}, [auth, baseUrl])
+
+
 
   /**  #create_user */
   const createUser = (email, password)=> {

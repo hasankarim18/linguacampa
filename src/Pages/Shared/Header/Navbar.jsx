@@ -6,14 +6,14 @@ import { FaBars } from "react-icons/fa";
 import { FaAngleDown } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
+import useRole from "../../../Hooks/useRole";
 
 
 const Navbar = () => {
     const {isDark} = useContext(DarkContext)
     const {user, logout} = useAuth()
-    const navigate = useNavigate()
-  
-    console.log(user)
+    const [role, isRoleLoading] = useRole()
+    const navigate = useNavigate()   
 
     const handleLogout = () => {
    
@@ -53,13 +53,14 @@ const Navbar = () => {
           Classes
         </NavLink>
       </li>
-      {user && (
+      {user && !isRoleLoading ?
         <li className="ml-2">
-          <NavLink className="nav_item" to="/dashboard">
+          <NavLink className="nav_item" to={`/dashboard/${role}Home`}>
             Dashboard
           </NavLink>
         </li>
-      )}
+        :''
+      }
     </>
   );
 
