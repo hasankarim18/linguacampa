@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaEye, FaEyeSlash, FaRegCheckSquare } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import SocialLogin from "./SocialLogin";
+import PasswordStateDetails from "./PasswordStateDetails";
 
 const Login = () => {
     const [showPassword, setshowPassword] = useState(false)
@@ -147,7 +149,7 @@ const Login = () => {
     <div className="siteContainer p-2">
       <div className="w-full lg:w-1/2 mx-auto">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="card-body">
+          <div className="card-body p-0">
             <div className="form-control">
               <label className="label text-xl">
                 <span className="label-text">Email</span>
@@ -170,7 +172,7 @@ const Login = () => {
                 <span className="label-text text-xl">Password</span>
               </label>
               <div className="relative">
-                <input 
+                <input
                   defaultValue="@aA123"
                   type={showPassword ? "text" : "password"}
                   placeholder="password"
@@ -213,45 +215,18 @@ const Login = () => {
                 Login{" "}
               </button>
             </div>
-            <div className="py-3 text-xl">
-              Already have an account?{" "}
-              <Link
-                to="/signup"
-                className="underline font-semibold text-blue-400"
-              >
-                SignUp
-              </Link>
-            </div>
-            <div className="py-2">
-              <ul className="">
-                <li className="flex gap-2 items-center">
-                  * {passwordStates.uppercase && <FaRegCheckSquare />}
-                  Password must contain at least one uppercase letter
-                </li>
-                <li className="flex gap-2 items-center">
-                  * {passwordStates.lowercase && <FaRegCheckSquare />}
-                  Password must contain at least one lowercase letter{" "}
-                </li>
-                <li className="flex gap-2 items-center">
-                  * {passwordStates.number && <FaRegCheckSquare />}
-                  Password must contain at least one number{" "}
-                </li>
-                <li className="flex gap-2 items-center">
-                  *{passwordStates.special && <FaRegCheckSquare />}
-                  Password must contain at least one special charecter{" "}
-                </li>
-                <li className="flex gap-2 items-center">
-                  *{passwordStates.min && <FaRegCheckSquare />}
-                  Password must be 6 charecter long{" "}
-                </li>
-                <li className="flex gap-2 items-center">
-                  *{passwordStates.max && <FaRegCheckSquare />}
-                  Password must be less than 20 charecter{" "}
-                </li>
-              </ul>
-            </div>
           </div>
         </form>
+        <div className="form-control">
+          <SocialLogin> Login With </SocialLogin>
+        </div>
+        <div className="py-2 text-xl">
+          Already have an account?{" "}
+          <Link to="/signup" className="underline font-semibold text-blue-400">
+            SignUp
+          </Link>
+        </div>
+        <PasswordStateDetails passwordStates={passwordStates} />
       </div>
     </div>
   );

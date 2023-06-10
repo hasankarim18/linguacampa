@@ -3,24 +3,22 @@ import { DarkContext } from "../../../Provider/AuthProvider/DarkModeProvider";
 import { Link, NavLink,  useNavigate } from "react-router-dom";
 import MobileNav from "./MobileNav";
 import { FaBars } from "react-icons/fa";
-
+import { FaAngleDown } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
 
 
 const Navbar = () => {
     const {isDark} = useContext(DarkContext)
-    const {user, logout, setLoading} = useAuth()
+    const {user, logout} = useAuth()
     const navigate = useNavigate()
   
-    
+    console.log(user)
 
     const handleLogout = () => {
-      console.log('logout fire');
+   
       logout()
         .then(() => {
-
-          console.log('logout success ful')
            Swal.fire({
              title: "Please Login",
              icon: "success",
@@ -107,14 +105,38 @@ const Navbar = () => {
                 <div className="relative z-1">
                   {user ? (
                     <>
-                      {" "}
-                      <span>{user?.displayName}</span>{" "}
+                      <div className="dropdown dropdown-bottom dropdown-end">
+                        <label tabIndex={0} 
+                         className="inline-flex cursor-pointer items-center justify-center bg-white dark:bg-transparent hover:bg-white border-0 m-1">                         
+                          <img src={user?.photoURL} className="w-14 h-14 rounded-full border-2 p-1" alt="" />
+                          <FaAngleDown className="text-darkNavyBlue dark:text-white" />
+                        </label>
+                        <ul
+                          tabIndex={0}
+                          className="dropdown-content  p-2 shadow bg-base-100 rounded-box w-52"
+                        >
+                          <li className="mb-2">
+                            <Link to="/profile" className="btn-green1 relative w-full rounded-lg py-2 px-4">
+                              User Profile
+                            </Link>
+                          </li>
+                          <li className="w-full">
+                            <button
+                              onClick={handleLogout}
+                              className="btn-yellow1 relative w-full rounded-lg py-2 px-4"
+                            >
+                              Logout
+                            </button>{" "}
+                          </li>
+                        </ul>
+                      </div>
+                      {/* <span>{user?.displayName}</span>{" "}
                       <button
                         onClick={handleLogout}
                         className="btn-yellow1 relative rounded-lg py-2 px-4"
                       >
                         Logout
-                      </button>
+                      </button> */}
                     </>
                   ) : (
                     <Link

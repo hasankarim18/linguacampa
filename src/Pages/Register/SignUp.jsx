@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaEye, FaEyeSlash, FaRegCheckSquare } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import {Helmet} from 'react-helmet-async'
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import SimpleBackdrop from "../../Utils/SimpleBackDrop";
+import SocialLogin from "./SocialLogin";
+import PasswordStateDetails from "./PasswordStateDetails";
 
 const SignUp = () => {
   const [showPassword, setshowPassword] = useState(false);
@@ -17,6 +19,9 @@ const SignUp = () => {
   const [confirmShowPassword, setConfirmShowPassword] = useState(false);
   const [submitDisable, setSubmitDisable] = useState(false);
   const [backDrop, setBackDrop] = useState(false);
+  const [isApplied, setIsApplied] = useState(false)
+ 
+ 
 
   const navigate = useNavigate();
   const [passwordStates, setPasswordStates] = useState({
@@ -167,8 +172,8 @@ const SignUp = () => {
     const photo = data.photo;
     const gender = data.gender;
     const phone = data.phone;
-    const role = data.role;
-    const userData = { name, email, password, photo, gender, phone, role };
+    const applied = data.applied;
+    const userData = { name, email, password, photo, gender, phone, applied };
     handleBackdropOpen()
     createUser(email, password)
       .then(() => {
@@ -182,7 +187,7 @@ const SignUp = () => {
           })
             .then((res) => res.json())
             .then((data) => {
-              console.log(data);
+             
               if (data.insertedId) {
                  handleBackdropClose();
                  reset();
@@ -239,15 +244,14 @@ const SignUp = () => {
 
   return (
     <div className="siteContainer p-2">
-      
       <Helmet>
         <title> Sgin Up | Lingua Campa </title>
       </Helmet>
-    
+
       <SimpleBackdrop open={backDrop} />
       <div className="w-full lg:w-1/2 mx-auto">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="card-body">
+          <div className="card-body p-0">
             {/* #name */}
             <div className="form-control">
               <label className="label text-xl">
@@ -288,6 +292,80 @@ const SignUp = () => {
             </div>
             <div className="py-1 text-red-400">
               {errors.email && "Email format not valid"}
+            </div>
+
+            {/* #photo url */}
+            <div className="py-2">
+              <label className="label text-xl">
+                <span className="label-text text-xl">Photo Url*</span>
+              </label>
+              <input
+                {...register("photo", {
+                  required: true,
+                  onChange: (e) => {
+                    setUserPhoto(e.target.value);
+                  },
+                })}
+                type="text"
+                className="input input-bordered w-full"
+                placeholder="Photo Url"
+              />
+            </div>
+            {errors.photo && (
+              <div className="text-red-400">Photo Url Required</div>
+            )}
+            {/* #gender */}
+            <div className="py-2  flex gap-2">
+              <span>Gender</span>
+              <input
+                id="male"
+                {...register("gender")}
+                value="male"
+                type="radio"
+              />
+              <label htmlFor="male">Male</label>
+              <input
+                id="female"
+                {...register("gender")}
+                value="female"
+                type="radio"
+              />
+              <label htmlFor="female">Female</label>
+              <input
+                id="other"
+                {...register("gender")}
+                value="other"
+                type="radio"
+              />
+              <label htmlFor="other">Other</label>
+            </div>
+            {/* #phone */}
+            <div className="py-2">
+              <span>Phone</span>
+              <input
+                className="input input-bordered ms-2"
+                type="text"
+                {...register("phone")}
+              />
+            </div>
+            {/* #apply */}
+            <div className="py-2">
+              <div>
+                <span className="text-xl flex items-center wi-full  mb-1 ">
+                  <span> Apply for instructor position</span>
+                  <input
+                    {...register("applied", {
+                      onChange: (e) => {
+                        setIsApplied(e.target.checked);
+                      },
+                    })}
+                    type="checkbox"
+                    className="toggle ml-2 mr-2 toggle-warning"
+                  />
+                  {isApplied ? "Yes" : "No"}
+                </span>
+                <span> (default Student) </span>
+              </div>
             </div>
             {/* #password */}
             <div className="form-control">
@@ -353,7 +431,7 @@ const SignUp = () => {
                   {confirmShowPassword ? <FaEyeSlash /> : <FaEye />}
                 </span>
               </div>
-              { password !== confirmPassword && (
+              {password !== confirmPassword && (
                 <div className="py-2 text-red-400">Password did Not match</div>
               )}
               {/* <label className="label">
@@ -362,80 +440,7 @@ const SignUp = () => {
                 </a>
               </label> */}
             </div>
-            {/* #photo url */}
-            <div className="py-2">
-              <label className="label text-xl">
-                <span className="label-text text-xl">Photo Url*</span>
-              </label>
-              <input
-                {...register("photo", {
-                  required: true,
-                  onChange: (e) => {
-                    setUserPhoto(e.target.value);
-                  },
-                })}
-                type="text"
-                className="input input-bordered w-full"
-                placeholder="Photo Url"
-              />
-            </div>
-            {errors.photo && (
-              <div className="text-red-400">Photo Url Required</div>
-            )}
-            {/* #gender */}
-            <div className="py-2  flex gap-2">
-              <span>Gender</span>
-              <input
-                id="male"
-                {...register("gender")}
-                value="male"
-                type="radio"
-              />
-              <label htmlFor="male">Male</label>
-              <input
-                id="female"
-                {...register("gender")}
-                value="female"
-                type="radio"
-              />
-              <label htmlFor="female">Female</label>
-              <input
-                id="other"
-                {...register("gender")}
-                value="other"
-                type="radio"
-              />
-              <label htmlFor="other">Other</label>
-            </div>
-            {/* #phone */}
-            <div className="py-2">
-              <span>Phone</span>
-              <input
-                className="input input-bordered ms-2"
-                type="text"
-                {...register("phone")}
-              />
-            </div>
-            {/* #role */}
-            <div className="py-2">
-              <div>
-                <span className="text-xl mb-1 inline-block">Sign Is As</span>
-                <span> (default Student) </span>
-              </div>
-              <select
-                defaultValue="student"
-                className="select  select-bordered w-full "
-                {...register("role")}
-              >
-                <option className="text-xl" value="student" key="1">
-                  Student
-                </option>
-                <option className="text-xl" value="insturctor" key="2">
-                  Instructor
-                </option>
-              </select>
-            </div>
-            <div className="form-control">
+            <div className="form-control mt-4 ">
               <button
                 disabled={!submitDisable}
                 className="btn-yellow1 block relative cursor-pointer rounded-lg py-2 px-4"
@@ -445,46 +450,22 @@ const SignUp = () => {
                 SignUp
               </button>
             </div>
+
             {/* sign up link */}
-            <div className="py-3 text-xl">
-              Already have an account?{" "}
-              <Link
-                to="/login"
-                className="underline font-semibold text-blue-400"
-              >
-                Login{" "}
-              </Link>
-            </div>
-            <div className="py-2">
-              <ul className="">
-                <li className="flex gap-2 items-center">
-                  * {passwordStates.uppercase && <FaRegCheckSquare />}
-                  Password must contain at least one uppercase letter
-                </li>
-                <li className="flex gap-2 items-center">
-                  * {passwordStates.lowercase && <FaRegCheckSquare />}
-                  Password must contain at least one lowercase letter{" "}
-                </li>
-                <li className="flex gap-2 items-center">
-                  * {passwordStates.number && <FaRegCheckSquare />}
-                  Password must contain at least one number{" "}
-                </li>
-                <li className="flex gap-2 items-center">
-                  *{passwordStates.special && <FaRegCheckSquare />}
-                  Password must contain at least one special charecter{" "}
-                </li>
-                <li className="flex gap-2 items-center">
-                  *{passwordStates.min && <FaRegCheckSquare />}
-                  Password must be 6 charecter long{" "}
-                </li>
-                <li className="flex gap-2 items-center">
-                  *{passwordStates.max && <FaRegCheckSquare />}
-                  Password must be less than 20 charecter{" "}
-                </li>
-              </ul>
-            </div>
+
+            {/* password */}
           </div>
         </form>
+        <div className="form-control">
+          <SocialLogin> Sign Up With </SocialLogin>
+        </div>
+        <div className="py-2 text-xl">
+          Already have an account?{" "}
+          <Link to="/login" className="underline font-semibold text-blue-400">
+            Login{" "}
+          </Link>
+        </div>
+        <PasswordStateDetails passwordStates={passwordStates} />
       </div>
     </div>
   );
