@@ -45,15 +45,25 @@ const MyClasses = () => {
                                   alt={item.className}
                                 />
                               </figure>
-                              <div className="card-body">                                
+                              <div className="card-body">
                                 <h2 className="card-title capitalize">
                                   {item.className}
                                 </h2>
                                 <div className="text-xl font-semibold">
                                   Price: ${item.price}
                                 </div>
+                                <div className="text-xl flex gap-2 font-semibold">
+                                  <div>Seats: {item.seats}</div>
+                                </div>
+                                <div className="text-xl font-semibold">
+                                  <div>
+                                    Enrolled Students: {item?.enrolled}
+                                  </div>
+                                  <div>Seats Left: {item?.availableSeats}</div>
+                                </div>
+                                <div className="text-xl font-semibold"></div>
                                 <div className="card-actions justify-end">
-                                  <button className="btn-green1 rounded-lg">
+                                  <button className="btn-green1 w-full rounded-lg">
                                     View Details
                                   </button>
                                 </div>

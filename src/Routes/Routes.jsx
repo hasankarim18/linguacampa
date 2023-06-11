@@ -6,7 +6,7 @@ import ErrorPage from "../Pages/Error/ErrorPage";
 import Instructors from "../Pages/Instructors/Instructors";
 import Classes from "../Pages/Classes/Classes";
 import AdminHome from "../Layout/DashBoard/DashPages/AdminPages/AdminHome";
-import StudentsHome from "../Layout/DashBoard/DashPages/DashHome/StudentsHome";
+import StudentsHome from "../Layout/DashBoard/DashPages/StudentPages/StudentsHome";
 import InstructorHome from "../Layout/DashBoard/DashPages/InstructorPages/InstructorHome";
 import Login from "../Pages/Register/Login";
 import SignUp from "../Pages/Register/SignUp";
@@ -21,6 +21,8 @@ import AddClass from "../Layout/DashBoard/DashPages/InstructorPages/AddClass";
 import MyClasses from "../Layout/DashBoard/DashPages/InstructorPages/MyClasses";
 import MyClass from "../Layout/DashBoard/DashPages/InstructorPages/MyClass";
 import InstructorFeedback from "../Layout/DashBoard/DashPages/InstructorPages/InstructorFeedback";
+import MySelectedClass from "../Layout/DashBoard/DashPages/StudentPages/MySelectedClass";
+import MyEnrolledClass from "../Layout/DashBoard/DashPages/StudentPages/MyEnrolledClass";
 // import RegisterRoute from "./RegisterRoute";
 
 
@@ -79,11 +81,21 @@ const router = createBrowserRouter([
       },
       {
         path: "manageUsers",
-        element:<AdminRoute> <ManageUsers /> </AdminRoute>
+        element: (
+          <AdminRoute>
+            {" "}
+            <ManageUsers />{" "}
+          </AdminRoute>
+        ),
       },
       {
-        path:"adminProfile",
-        element:<AdminRoute> <AdminProfile /> </AdminRoute>
+        path: "adminProfile",
+        element: (
+          <AdminRoute>
+            {" "}
+            <AdminProfile />{" "}
+          </AdminRoute>
+        ),
       },
       /** instructor route below */
       {
@@ -98,27 +110,58 @@ const router = createBrowserRouter([
         path: "instructorFeedback",
         element: (
           <InstructorRoute>
-            <InstructorFeedback  />
+            <InstructorFeedback />
           </InstructorRoute>
         ),
       },
       {
-        path:'addClass',
-        element:<InstructorRoute> <AddClass /> </InstructorRoute>
-      }, 
-      {
-        path:"myClasses",
-        element:<InstructorRoute> <MyClasses /> </InstructorRoute>
+        path: "addClass",
+        element: (
+          <InstructorRoute>
+            {" "}
+            <AddClass />{" "}
+          </InstructorRoute>
+        ),
       },
       {
-        path:'myClass',
-        element:<InstructorRoute> <MyClass /> </InstructorRoute>
+        path: "myClasses",
+        element: (
+          <InstructorRoute>
+            {" "}
+            <MyClasses />{" "}
+          </InstructorRoute>
+        ),
+      },
+      {
+        path: "myClass",
+        element: (
+          <InstructorRoute>
+            {" "}
+            <MyClass />{" "}
+          </InstructorRoute>
+        ),
       },
       {
         path: "studentHome",
         element: (
           <StudentRoute>
             <StudentsHome />
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "mySelectedClass",
+        element: (
+          <StudentRoute>
+            <MySelectedClass />
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "myEnrolledClass",
+        element: (
+          <StudentRoute>
+            <MyEnrolledClass  />
           </StudentRoute>
         ),
       },
