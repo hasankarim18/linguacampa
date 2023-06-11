@@ -1,9 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
-import useDataProvider from "../../../../Hooks/useDataProvider";
 import useAuth from "../../../../Hooks/useAuth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SimpleBackdrop from "../../../../Utils/SimpleBackDrop";
 import Swal from "sweetalert2";
 

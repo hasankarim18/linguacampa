@@ -1,7 +1,7 @@
 
 
 const DashOutLet = ({children}) => {
-    return <div>{children}</div>;
+    return <div className="bg-white">{children}</div>;
 };
 
 export default DashOutLet;
