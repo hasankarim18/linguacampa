@@ -1,8 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
-import { FaEdit } from "react-icons/fa";
-import SimpleBackdrop from "../../../../Utils/SimpleBackDrop";
 import Spinner from "../../../../Utils/Spinner";
 
 
@@ -10,7 +8,7 @@ const MyClasses = () => {
     const {user, loading} = useAuth()
     const axiosSecure = useAxiosSecure()
 
-    const { data, isLoading, refetch } = useQuery({
+    const { data, isLoading } = useQuery({
       queryKey: ["myClasses"],
       enabled: !loading,
       queryFn: async () => {
@@ -20,7 +18,7 @@ const MyClasses = () => {
       },
     });
 
-    console.log(isLoading, data);
+ 
 
 
     return (
@@ -36,9 +34,9 @@ const MyClasses = () => {
                             <div
                               className={`
                              ${item.status === "pending" && "bg-yellow1"}
-                             ${item.status === "approved" && "bg-green1"}
+                             ${item.status === "approved" && "bg-green-400"}
                              ${item.status === "denied" && "bg-red-400"}
-                            card  bg-opacity-25 border p-2 relative`}
+                            card capitalize bg-opacity-25 border p-2 relative`}
                             >
                               <figure>
                                 <img
@@ -47,10 +45,7 @@ const MyClasses = () => {
                                   alt={item.className}
                                 />
                               </figure>
-                              <div className="card-body">
-                                <div>
-                                  <button>Edit </button>
-                                </div>
+                              <div className="card-body">                                
                                 <h2 className="card-title capitalize">
                                   {item.className}
                                 </h2>
@@ -67,7 +62,7 @@ const MyClasses = () => {
                                 <span
                                   className={`
                                 ${item.status === "pending" && "bg-yellow1"}
-                                ${item.status === "approved" && "bg-green1"}
+                                ${item.status === "approved" && "bg-green-400"}
                                 ${item.status === "denied" && "bg-red-400"}
                                 badge p-4 font-semibold border-0`}
                                 >

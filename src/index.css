@@ -148,5 +148,59 @@
 
 
 
+
+.btn-red1{
+    @apply bg-red-400;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 26px;
+    font-weight: 700;   
+    text-align: center;
+    padding: 12px 38px;
+    text-transform: uppercase;
+    z-index: 1;
+    transition: all 500ms ease;  
+    letter-spacing: 1px;
+    position: relative;
+    cursor: pointer;
+    color:white;
+    
+}
+
+.btn-red1::before {
+    background-color: rgb(8, 8, 8);
+    position: absolute;
+    content: '';
+    width: 0%;
+    height: 100%;
+    right: 0px;
+    top: 0px;
+    opacity: 0.1;
+    z-index: -1;
+    transition: all 500ms ease;
+  
+}
+
+.btn-red1:disabled{
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+.btn-red1:hover::before{
+    width: 100%;
+    left: 0;
+}
+
+
+
+.manage_classes, th, td{
+    @apply border;
+    border-collapse: collapse;
+}
+
+
 }
 
