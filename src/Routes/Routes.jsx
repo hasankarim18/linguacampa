@@ -20,6 +20,7 @@ import AdminProfile from "../Layout/DashBoard/DashPages/AdminPages/AdminProfile"
 import AddClass from "../Layout/DashBoard/DashPages/InstructorPages/AddClass";
 import MyClasses from "../Layout/DashBoard/DashPages/InstructorPages/MyClasses";
 import MyClass from "../Layout/DashBoard/DashPages/InstructorPages/MyClass";
+import InstructorFeedback from "../Layout/DashBoard/DashPages/InstructorPages/InstructorFeedback";
 // import RegisterRoute from "./RegisterRoute";
 
 
@@ -90,6 +91,14 @@ const router = createBrowserRouter([
         element: (
           <InstructorRoute>
             <InstructorHome />
+          </InstructorRoute>
+        ),
+      },
+      {
+        path: "instructorFeedback",
+        element: (
+          <InstructorRoute>
+            <InstructorFeedback  />
           </InstructorRoute>
         ),
       },

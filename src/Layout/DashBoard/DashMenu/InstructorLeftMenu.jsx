@@ -1,4 +1,4 @@
-import { FaHome } from "react-icons/fa";
+import { FaClipboardList, FaHome, FaInbox, FaSchool } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 
@@ -12,12 +12,17 @@ const InstructorLeftMenu = () => {
         </li>
         <li className="mt-4">
           <NavLink to="/dashboard/addClass">
-            <FaHome /> Add a class
+            <FaSchool /> Add a class
           </NavLink>
         </li>
         <li className="mt-4">
           <NavLink to="/dashboard/myClasses">
-            <FaHome /> My Classes
+            <FaClipboardList /> My Classes
+          </NavLink>
+        </li>
+        <li className="mt-4">
+          <NavLink to="/dashboard/instructorFeedback">
+            <FaInbox /> Feedback
           </NavLink>
         </li>
       </>

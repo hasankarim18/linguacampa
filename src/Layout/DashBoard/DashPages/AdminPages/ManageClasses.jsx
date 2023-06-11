@@ -6,6 +6,7 @@ import { useState } from "react";
 import SimpleBackdrop from "../../../../Utils/SimpleBackDrop";
 import BasicModal from "../../../../Utils/BasicModal";
 import Swal from "sweetalert2";
+import LazyLoad from "react-lazy-load";
 
 
 const ManageClasses = () => {
@@ -23,7 +24,6 @@ const ManageClasses = () => {
        enabled: !loading,
        queryFn: async () => {
          const response = await axiosSecure.get(`/allclasses/${user.email}`);
-
          return response.data;
        },
      });
@@ -66,8 +66,7 @@ const ManageClasses = () => {
         setFeedbackLoading(true)     
        axiosSecure
          .post(`/instructor/feedback`, feedbackInfo)
-         .then((res) => {
-          
+         .then((res) => {          
            if (res.data.message === "success") {      
               setFeedbackLoading(false); 
                setModalOpen(false);    
@@ -96,7 +95,7 @@ const ManageClasses = () => {
 
     return (
       <div className=" p-2 sm:p-2 md:p-2 mb-8 text-center">
-        {/* <SimpleBackdrop open={statusLoading} /> */}
+        <SimpleBackdrop open={statusLoading} />
         <h2 className="text-3xl">Manage All Classes</h2>
         <div className="mt-4">
           {isLoading ? (
@@ -130,11 +129,13 @@ const ManageClasses = () => {
                           <th>{i + 1}</th>
                           <td>{item.className}</td>
                           <td>
-                            <img
-                              className="w-3/4 mx-auto rounded-lg"
-                              src={item.classImage}
-                              alt=""
-                            />
+                            <LazyLoad height={48}>
+                              <img
+                                className="w-12 h-12 mx-auto rounded-lg"
+                                src={item.classImage}
+                                alt=""
+                              />
+                            </LazyLoad>
                           </td>
                           <td>
                             <div>{item.instructorName}</div>
