@@ -5,9 +5,7 @@ import { createContext, useState } from "react";
 export const DataContext = createContext()
 
 const DataProvider = ({children}) => {
-    // data for admin route and all users
-    const [allUsers, setAllUsers] = useState([])
-    const [allUserLoading, setAllUserLoading] = useState(true)
+   const [totalPrice, setTotalPrice] = useState(0);
     /**** */
 
  //   const axiosSecure = useAxiosSecure()
@@ -16,13 +14,9 @@ const DataProvider = ({children}) => {
 
 
     const data = {
-        // allUsers for admin
-        allUsers,
-        allUserLoading,
-        setAllUsers,
-        setAllUserLoading
-        //**** */
-    }
+      totalPrice,
+      setTotalPrice,
+    };
 
     return (
         <DataContext.Provider value={data}>

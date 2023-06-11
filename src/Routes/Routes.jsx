@@ -23,6 +23,7 @@ import MyClass from "../Layout/DashBoard/DashPages/InstructorPages/MyClass";
 import InstructorFeedback from "../Layout/DashBoard/DashPages/InstructorPages/InstructorFeedback";
 import MySelectedClass from "../Layout/DashBoard/DashPages/StudentPages/MySelectedClass";
 import MyEnrolledClass from "../Layout/DashBoard/DashPages/StudentPages/MyEnrolledClass";
+import Payments from "../Layout/DashBoard/DashPages/StudentPages/Payments/Payments";
 // import RegisterRoute from "./RegisterRoute";
 
 
@@ -161,7 +162,15 @@ const router = createBrowserRouter([
         path: "myEnrolledClass",
         element: (
           <StudentRoute>
-            <MyEnrolledClass  />
+            <MyEnrolledClass />
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "payment",
+        element: (
+          <StudentRoute>
+            <Payments />
           </StudentRoute>
         ),
       },

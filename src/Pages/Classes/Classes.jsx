@@ -42,13 +42,12 @@ const Classes = () => {
                 title:"Please Login To Select Class",
                 icon: 'warning'
             })
-        }else {
-            console.log(classId, studenEmail);
+        }else {          
             const body = {classId, studenEmail}
             axiosSecure
               .post("/selectClass", body)
-              .then((res) => {
-                console.log(res.data);
+              .then(() => {
+               
               })
               .catch((error) => {
                 console.log(error);

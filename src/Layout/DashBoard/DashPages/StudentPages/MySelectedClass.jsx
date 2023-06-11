@@ -4,15 +4,20 @@ import Spinner from "../../../../Utils/Spinner";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SimpleBackdrop from "../../../../Utils/SimpleBackDrop";
+import { Link } from "react-router-dom";
+import { DataContext } from "../../../../Provider/DataProvider/DataProvider";
 
 const MySelectedClass = () => {
     const [data, isLoading, refetch] = useMySelectedClass();
-    const [deleteLoading, setDeleteLoading] = useState(false)
+    const [deleteLoading, setDeleteLoading] = useState(false)  
     const axiosSecure = useAxiosSecure()
     const baseurl = import.meta.env.VITE_baseUrl 
     const {user} = useAuth()
+    const { totalPrice, setTotalPrice } = useContext(DataContext);
+
+   
    
 
     const handleSelectedDelete = (classId)=> {
@@ -27,7 +32,7 @@ const MySelectedClass = () => {
                setDeleteLoading(false);  
                Swal.fire({
                  title: "Selected Class Removed",
-               })           
+               })          
                   
             }else {
                   setDeleteLoading(false);
@@ -38,6 +43,14 @@ const MySelectedClass = () => {
             console.log(error);
           });
     }
+
+    useEffect(() => {
+      if (!isLoading) {
+        const totalPrice = data.data.reduce((sum, item) => sum + item.price, 0);
+        setTotalPrice(totalPrice);
+      }
+    }, [data, isLoading, setTotalPrice]);
+    
 
     return (
       <div className="p-4">
@@ -96,6 +109,12 @@ const MySelectedClass = () => {
                 </tbody>
               </table>
             )}
+          </div>
+          <div className="flex mt-4 justify-between">
+            <h3 className="text-2xl">Total Payable Amount: ${totalPrice} </h3>
+            <Link to="/dashboard/payment" className="btn-green1 rounded-lg">
+              Pay Now
+            </Link>
           </div>
         </div>
       </div>
