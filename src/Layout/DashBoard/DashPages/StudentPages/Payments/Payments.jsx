@@ -2,8 +2,8 @@ import { Helmet } from "react-helmet-async";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
-import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../../../../../Provider/DataProvider/DataProvider";
+import {  useEffect, useState } from "react";
+
 import useMySelectedClass from "../../../../../Hooks/useMySelectedClass";
 
 const payment_key = import.meta.env.VITE_payment_gatewayPK;
@@ -28,7 +28,8 @@ const Payments = () => {
       }
    
    }, [isLoading, setTotalPrice, data])
-   
+
+ //  console.log('[data]', data.data)
    
   return (
     <div>
@@ -38,11 +39,11 @@ const Payments = () => {
       <h3 className="text-3xl">Please Checkout</h3>
       <div className="mt-2 text-2xl">Total payable amount: ${totalPrice}</div>
       <div className="mt-8 p-2 sm:p-4 md:p-8 mx-auto w-full">
-        {!isLoading && totalPrice  > 0 && (
+        {!isLoading && totalPrice  > 0 ? (
           <Elements stripe={stripePromise}>
-            <CheckoutForm price={totalPrice} />
+            <CheckoutForm price={totalPrice} cart={data.data} />
           </Elements>
-        )}
+        ):<div className="text-3xl">Please add some classes.</div>}
       </div>
     </div>
   );

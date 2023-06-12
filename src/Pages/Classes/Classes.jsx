@@ -11,6 +11,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 const Classes = () => {
     const [allClasses, setAllClasses] = useState([])
     const [allClassesLoading, setAllClassesLoading] = useState(false)
+    const [classSelectLoading, setClassSelectLoading] = useState(false)
     const [role] = useRole()   
     const {user} = useAuth()
     const axiosSecure = useAxiosSecure()
@@ -37,7 +38,9 @@ const Classes = () => {
     /*** Handle class select */
 
     const handleSelect = (classId, studenEmail)=> {
-        if(!user){            
+      setClassSelectLoading(true)
+        if(!user){      
+           setClassSelectLoading(false);      
             Swal.fire({
                 title:"Please Login To Select Class",
                 icon: 'warning'
@@ -46,10 +49,31 @@ const Classes = () => {
             const body = {classId, studenEmail}
             axiosSecure
               .post("/selectClass", body)
-              .then(() => {
-               
+              .then((res) => {               
+                if(res.data.message === "success"){
+                   setClassSelectLoading(false);  
+                   Swal.fire({
+                    title:"Selected",
+                    icon:'success'
+                   })
+                }else if(res.data.message === 'already_selected'){
+                   setClassSelectLoading(false);  
+                    Swal.fire({
+                      title: "Already Selected",
+                      icon: "error",
+                    });
+                }else if(res.data.message === 'already_enrolled')              {
+                  setClassSelectLoading(false);
+                  Swal.fire({
+                    title: "Already Enrolled",
+                    icon: "error",
+                  });
+                }else {
+                   setClassSelectLoading(false);
+                }
               })
               .catch((error) => {
+                setClassSelectLoading(false);  
                 console.log(error);
               });
         }
@@ -59,6 +83,7 @@ const Classes = () => {
     return (
       <div className="siteContainer">
         <SimpleBackdrop open={allClassesLoading} />
+        <SimpleBackdrop open={classSelectLoading} />
         <h2 className="text-3xl my-8 text-center">
           Explore Our Diverse Range of Enriching Courses
         </h2>
