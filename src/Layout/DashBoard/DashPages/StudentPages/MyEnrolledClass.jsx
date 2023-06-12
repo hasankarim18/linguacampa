@@ -20,6 +20,8 @@ const MyEnrolledClass = () => {
        },
      });
 
+    
+
     return (
       <div>
         <SimpleBackdrop open={isLoading} />
@@ -42,9 +44,12 @@ const MyEnrolledClass = () => {
               </div>
             ))}
         </div>
-        {data.data.length === 0 && (
+        {!isLoading && 
+        data.data.length === 0 && (
           <h2 className="text-2xl p-4">You are not enrolled in any class.</h2>
-        )}
+        )
+        }
+        
       </div>
     );
 };

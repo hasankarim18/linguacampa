@@ -83,7 +83,7 @@ const InstructorFeedback = () => {
           ))}
         </div>
       )}
-      { !isLoading ? data.data.length === 0 && <h2 className="text-3xl">No feed back yet!</h2>: '' }
+      { !isLoading ? data?.data?.length === 0 && <h2 className="text-3xl">No feed back yet!</h2>: '' }
     </div>
   );
 };

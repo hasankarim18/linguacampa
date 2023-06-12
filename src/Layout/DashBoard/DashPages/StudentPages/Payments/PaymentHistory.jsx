@@ -24,7 +24,7 @@ const PaymentHistory = () => {
        },
      });
 
-     console.log(data);
+ 
 
   return (
     <div>
