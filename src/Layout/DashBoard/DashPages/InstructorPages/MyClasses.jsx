@@ -83,7 +83,9 @@ const MyClasses = () => {
                           </div>
                         );})
                     }
-                </div>            
+                    {data.data.length === 0 && <h2 className="text-3xl">Please Add Your Class</h2>}
+                </div>    
+                
           )}
         </div>
       </div>

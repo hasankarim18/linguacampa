@@ -3,7 +3,7 @@ import { FaEnvelope, FaMailBulk, FaPhoneAlt } from "react-icons/fa";
 
 const Footer = () => {
     return (
-      <div>
+      <div className="mt-12" >
         <footer className="grid grid-cols-1 md:grid-cols-4 gap-4 justify-between dark:border-t-2 p-10 bg-darkNavyBlue text-white siteContainer">
           <div>
             <Link to="/">

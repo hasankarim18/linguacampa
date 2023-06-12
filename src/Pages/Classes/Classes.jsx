@@ -90,12 +90,14 @@ const Classes = () => {
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid">
           {!allClassesLoading &&
             allClasses.map((item) => {
-               
+               const seatLeft = (item.seats-item.enrolledStudents).toFixed(0)
                 return (
                   <div key={item._id}>
-                    <div className={`
-                    ${item?.availableSeats=== 0 && 'bg-red-400 bg-opacity-30'}
-                    card bg-base-100 shadow-2xl dark:text-black text-black `}>
+                    <div
+                      className={`
+                    ${item?.availableSeats === 0 && "bg-red-400 bg-opacity-30"}
+                    card bg-base-100 shadow-2xl dark:text-black text-black `}
+                    >
                       <figure>
                         <img
                           className="w-full h-60"
@@ -117,22 +119,28 @@ const Classes = () => {
                             Instructor Name: {item.instructorName}
                           </span>
                         </p>
-                        <div className="mt-2 flex justify-between">
-                          <span>Seats: {item.seats}</span>
-                          <span>Availavle Seat: {item?.availableSeats}</span>
+                        <div className="mt-2 flex flex-col text-xl font-semibold justify-between">
+                          <div className="flex justify-between" >
+                            <span className="">Seats: {item.seats}</span>
+                            <span className="">Seats Left: {seatLeft} </span>
+                          </div>
+                          <div>Enrolled Students: {item?.enrolledStudents}</div>
                         </div>
 
                         <div className="card-actions justify-end">
-                        
-                        
-                            <button 
-                              onClick={()=> {handleSelect(item._id, user?.email )}}
-                              disabled={item?.availableSeats === 0 || role === 'admin' || role === 'instructor'}
-                              className="btn-yellow1 p-2 rounded-2xl"
-                            >
-                              Select Class
-                            </button>
-                         
+                          <button
+                            onClick={() => {
+                              handleSelect(item._id, user?.email);
+                            }}
+                            disabled={
+                              item?.availableSeats === 0 ||
+                              role === "admin" ||
+                              role === "instructor"
+                            }
+                            className="btn-yellow1 p-2 rounded-2xl"
+                          >
+                            Select Class
+                          </button>
                         </div>
                       </div>
                     </div>
