@@ -1,5 +1,6 @@
 import { Link, useRouteError } from "react-router-dom";
-import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import Lottie from "lottie-react";
+import error2 from "../../../public/animation/error.json";
 
 export default function ErrorPage() {
   const error = useRouteError();
@@ -11,19 +12,23 @@ export default function ErrorPage() {
       id="error-page"
     >
       <div className="flex flex-col gap-4 ">
-        <h1>Oops!</h1>
+        
         <div className="">
-          <SentimentVeryDissatisfiedIcon
+          <Lottie animationData={error2} />
+          {/* <SentimentVeryDissatisfiedIcon
             sx={{ fontSize: 140 }}
             color="secondary"
-          />
+          /> */}
         </div>
         <p>Sorry, an unexpected error has occurred.</p>
         <p>
           <i>{error.statusText || error.message}</i>
         </p>
         <div>
-          <Link to="/" className="py-4 px-12 inline-block bg-darkNavyBlue  text-white text-xl rounded-lg border-4 border-darkNavyBlue hover:bg-transparent transition-all hover:text-black ">
+          <Link
+            to="/"
+            className="py-4 px-12 inline-block bg-darkNavyBlue  text-white text-xl rounded-lg border-4 border-darkNavyBlue hover:bg-transparent transition-all hover:text-black "
+          >
             {" "}
             Back To Home{" "}
           </Link>
