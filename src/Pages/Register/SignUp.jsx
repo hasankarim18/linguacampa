@@ -250,6 +250,9 @@ const SignUp = () => {
 
       <SimpleBackdrop open={backDrop} />
       <div className="w-full lg:w-1/2 mx-auto">
+        <h3 className="text-3xl">
+          *If you want to apply for Instructor plese sign up with email and password and check the apply for instructor button.
+        </h3>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="card-body p-0">
             {/* #name */}
