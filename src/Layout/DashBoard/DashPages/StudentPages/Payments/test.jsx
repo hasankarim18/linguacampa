@@ -4,7 +4,7 @@
 //     const enrolledStudents = await enrollCollections.find().toArray();
 //     const classes = await classesCollections.find({ status: "approved" }).toArray();
 
-import { notifyManager } from "@tanstack/react-query"
+// import { notifyManager } from "@tanstack/react-query"
 
    
 //     // write code to update using put / pathch the classes seats / seats will be unchanged and two new field will be added number of enrolled students and seats left
@@ -83,14 +83,14 @@ import { notifyManager } from "@tanstack/react-query"
 
 //    // write code to update using put / pathch the classes seats / seats will be unchanged and two new field will be added number of enrolled students and seats left
 
-in mongodb enrollcollections 
+// in mongodb enrollcollections 
 
-i have enrolled students as 
-{
-    _id: a;dkfj,
-    enrolledClassIds:[1,2,3]
-    studentId:st@Mail.com,
+// i have enrolled students as 
+// {
+//     _id: a;dkfj,
+//     enrolledClassIds:[1,2,3]
+//     studentId:st@Mail.com,
 
-}
+// }
 
-how can i check using student id and classId that student is enrolled or not
+// how can i check get enrolled Class title using enrolledClassIds for specific studentId

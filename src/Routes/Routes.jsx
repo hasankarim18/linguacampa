@@ -24,6 +24,7 @@ import InstructorFeedback from "../Layout/DashBoard/DashPages/InstructorPages/In
 import MySelectedClass from "../Layout/DashBoard/DashPages/StudentPages/MySelectedClass";
 import MyEnrolledClass from "../Layout/DashBoard/DashPages/StudentPages/MyEnrolledClass";
 import Payments from "../Layout/DashBoard/DashPages/StudentPages/Payments/Payments";
+import PaymentHistory from "../Layout/DashBoard/DashPages/StudentPages/Payments/PaymentHistory";
 // import RegisterRoute from "./RegisterRoute";
 
 
@@ -171,6 +172,14 @@ const router = createBrowserRouter([
         element: (
           <StudentRoute>
             <Payments />
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "paymentHistory",
+        element: (
+          <StudentRoute>
+            <PaymentHistory />
           </StudentRoute>
         ),
       },

@@ -1,4 +1,4 @@
-import { FaAward, FaCheck, FaHome } from "react-icons/fa";
+import { FaAward, FaCheck, FaHome, FaWallet } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 
@@ -18,6 +18,11 @@ const StudentLeftMenu = () => {
         <li className="mt-4">
           <NavLink to="/dashboard/myEnrolledClass">
             <FaAward /> My Enrolled Class
+          </NavLink>
+        </li>
+        <li className="mt-4">
+          <NavLink to="/dashboard/paymentHistory">
+            <FaWallet /> Payment History
           </NavLink>
         </li>
       </>
