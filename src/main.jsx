@@ -8,6 +8,7 @@ import DarkModeProvider from './Provider/AuthProvider/DarkModeProvider'
 import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import DataProvider from './Provider/DataProvider/DataProvider'
+import "aos/dist/aos.css";
 
 
 const queryClient = new QueryClient();

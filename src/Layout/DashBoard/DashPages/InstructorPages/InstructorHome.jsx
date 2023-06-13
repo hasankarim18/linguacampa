@@ -11,7 +11,7 @@ const InstructorHome = () => {
   const [openEdit, setOpenEdit] = useState(false)
   const [updating, setUpdating] = useState(false)
 
-     const { user, loading } = useAuth();
+     const { user, loading, updateUserProfile } = useAuth();
 
      const axiosSecure = useAxiosSecure();
 
@@ -39,8 +39,15 @@ const InstructorHome = () => {
         .patch(`/updateInsturctor/${user.email}`, body)
         .then((res) => {
           if (res.data.data.modifiedCount>0){
-            refetch()
-            setUpdating(false);
+            updateUserProfile(name, photo)
+            .then(()=> {
+              refetch();
+              setUpdating(false);
+            })
+            .catch(()=> {              
+               setUpdating(false);
+            })
+           
           } else {
             setUpdating(false);
           }

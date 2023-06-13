@@ -67,7 +67,7 @@ const Navbar = () => {
 
 
     return (
-      <div className="header_nav">
+      <div className="header_nav relative z-50">
         <div className="siteContainer flex items-center justify-between ">
           <div className="drawer">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -116,12 +116,7 @@ const Navbar = () => {
                         <ul
                           tabIndex={0}
                           className="dropdown-content  p-2 shadow bg-base-100 rounded-box w-52"
-                        >
-                          <li className="mb-2">
-                            <Link to="/profile" className="btn-green1 relative w-full rounded-lg py-2 px-4">
-                              User Profile
-                            </Link>
-                          </li>
+                        >                         
                           <li className="w-full">
                             <button
                               onClick={handleLogout}
