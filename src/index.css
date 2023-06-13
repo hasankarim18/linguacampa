@@ -81,6 +81,22 @@
     @apply mb-2 w-full;
 }
 
+.mobile_nav {
+    
+}
+
+.mobile_nav li:first-of-type{
+    margin-top: 30px
+}
+
+.mobile_nav li{
+    margin-bottom: 20px;
+}
+
+.mobile_nav li a.nav_item {
+    @apply text-white hover:text-yellow-400 ;
+}
+
 
 
 .dash_menu li a {

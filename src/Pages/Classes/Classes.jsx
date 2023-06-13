@@ -11,14 +11,13 @@ import { useQuery } from "@tanstack/react-query";
 const Classes = () => {
     const [classSelectLoading, setClassSelectLoading] = useState(false)
     const [role] = useRole()   
-    const {user, loading} = useAuth()
+    const {user} = useAuth()
     const axiosSecure = useAxiosSecure()
     const baseUrl = import.meta.env.VITE_baseUrl
     
 
     const {data, isLoading } = useQuery({
-      queryKey: ["allClasses"],
-      enabled: !loading,
+      queryKey: ["allClasses"],    
       queryFn: async () => {
         const response = await axios.get(`${baseUrl}/allClasses`)
 

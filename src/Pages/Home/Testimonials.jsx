@@ -53,9 +53,9 @@ const Testimonials = () => {
         {banner.map((item, i) => {
           return (
             <SwiperSlide key={i}>
-              <div>
+              <div className="bg-white dark:bg-darkNavyBlue dark:border" >
                 <p className="w-3/4 mx-auto">{item.title}</p>
-                <div className="flex w-full justify-center mt-12">
+                <div className="flex  w-full justify-center mt-12">
                   <img
                     src={item.img}
                     style={{ width: "100px", height: "100px" }}

@@ -8,7 +8,7 @@ const PopularClasses = () => {
     const { popularClasses, popularClasesLoading } = useDataProvider();
 
     return (
-      <div className="mt-16">
+      <div className="mt-24">
         <div className="">
           <div className="h-full w-full flex items-center justify-center">
             <HeadLine>Most Popular Classes</HeadLine>
@@ -51,7 +51,7 @@ const PopularClasses = () => {
                             initial={{y  : 300, opacity: 0.3 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             key={item._id}
-                            className="card bg-base-100 shadow-xl"
+                            className="card text-darkNavyBlue border dark:text-white dark:bg-darkNavyBlue bg-base-100 shadow-xl"
                           >
                             <figure>
                               <img

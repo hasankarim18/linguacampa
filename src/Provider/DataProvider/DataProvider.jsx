@@ -34,20 +34,27 @@ const baseUrl = import.meta.env.VITE_baseUrl
         setPopularClasesLoading(false);
       });
 
-      axios
-        .get(`${baseUrl}/popularInstructors`)
-        .then((res) => {
-          if (res.data.message === "success") {
-            setPopularInstructor(res.data.data);
-            setPopularInstructorLoading(false);
-          } else {
-              setPopularInstructorLoading(false);
-          }
-        })
-        .catch(() => {
-            setPopularInstructorLoading(false);
-        });
+      
  }, [baseUrl]);
+
+ useEffect(() => {
+   axios
+     .get(`${baseUrl}/popularInstructors`)
+     .then((res) => {
+       if (res.data.message === "success") {
+         setPopularInstructor(res.data.data);
+         setPopularInstructorLoading(false);
+       } else {
+         setPopularInstructorLoading(false);
+       }
+     })
+     .catch(() => {
+       setPopularInstructorLoading(false);
+     });
+ 
+   
+ }, [baseUrl])
+ 
  
 
 

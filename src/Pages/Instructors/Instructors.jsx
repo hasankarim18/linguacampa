@@ -1,7 +1,6 @@
 import { Box, Skeleton } from "@mui/material";
 import useDataProvider from "../../Hooks/useDataProvider";
 import HeadLine from "../../Utils/HeadLine";
-import { motion } from "framer-motion";
 
 const Instructors = () => {
   const { PopularInstructor, popularInstructorLoading } = useDataProvider();
@@ -37,19 +36,12 @@ const Instructors = () => {
             </>
           ) : (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid text-darkNavyBlue dark:bg-darkNavyBlue dark-text-white grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {PopularInstructor.map((item) => {
                   return (
-                    <motion.div
-                      transition={{
-                        ease: "linear",
-                        duration: 1,
-                        y: { duration: 1 },
-                      }}
-                      initial={{ y: 300, opacity: 0.3 }}
-                      whileInView={{ y: 0, opacity: 1 }}
+                    <div                      
                       key={item.info._id}
-                      className="card bg-base-100 shadow-xl"
+                      className="card bg-base-100 shadow-xl dark:bg-darkNavyBlue dark:border dark:text-white"
                     >
                       <figure>
                         <img
@@ -72,7 +64,7 @@ const Instructors = () => {
                           </span>
                         </p>
                       </div>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
