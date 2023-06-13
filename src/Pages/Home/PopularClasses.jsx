@@ -4,18 +4,9 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import {motion} from 'framer-motion'
 
-
-
-
-
 const PopularClasses = () => {
-
     const { popularClasses, popularClasesLoading } = useDataProvider();
 
-      console.log(popularClasses);
-      console.log('loading',popularClasesLoading);
-  
-    
     return (
       <div className="mt-16">
         <div className="">

@@ -10,6 +10,10 @@ const DataProvider = ({children}) => {
    /** popular top 6 classes */
    const [popularClasses, setPopularClasses] = useState([])
    const [popularClasesLoading, setPopularClasesLoading] = useState(true)
+   /** popular Instrucor */
+
+   const [PopularInstructor, setPopularInstructor] = useState([])
+   const [popularInstructorLoading, setPopularInstructorLoading] = useState(true)
    
     /**** */
 const baseUrl = import.meta.env.VITE_baseUrl 
@@ -29,6 +33,20 @@ const baseUrl = import.meta.env.VITE_baseUrl
       .catch(() => {
         setPopularClasesLoading(false);
       });
+
+      axios
+        .get(`${baseUrl}/popularInstructors`)
+        .then((res) => {
+          if (res.data.message === "success") {
+            setPopularInstructor(res.data.data);
+            setPopularInstructorLoading(false);
+          } else {
+              setPopularInstructorLoading(false);
+          }
+        })
+        .catch(() => {
+            setPopularInstructorLoading(false);
+        });
  }, [baseUrl]);
  
 
@@ -39,6 +57,8 @@ const baseUrl = import.meta.env.VITE_baseUrl
       setTotalPrice,
       popularClasses,
       popularClasesLoading,
+      PopularInstructor,
+      popularInstructorLoading,
     };
 
     return (
