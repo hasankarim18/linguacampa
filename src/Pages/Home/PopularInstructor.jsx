@@ -8,7 +8,6 @@ const PopularInstructor = () => {
     const { PopularInstructor,
       popularInstructorLoading} = useDataProvider()
 
-      console.log(PopularInstructor);
 
     return (
       <div className="mt-16">
@@ -44,7 +43,7 @@ const PopularInstructor = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                   {PopularInstructor.splice(0,6).map((item) => {
                     return (
-                      <motion.div
+                      <motion.div                         
                         transition={{
                           ease: "linear",
                           duration: 1,
@@ -52,7 +51,7 @@ const PopularInstructor = () => {
                         }}
                         initial={{ y: 300, opacity: 0.3 }}
                         whileInView={{ y: 0, opacity: 1 }}
-                        key={item._id}
+                        key={item.info._id}
                         className="card bg-base-100 shadow-xl"
                       >
                         <figure>

@@ -24,6 +24,8 @@ const PaymentHistory = () => {
        },
      });
 
+   
+
  
 
   return (
@@ -60,6 +62,7 @@ const PaymentHistory = () => {
             </tbody>
           </table>
         </div>
+
       </div>
     </div>
   );

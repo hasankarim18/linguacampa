@@ -16,6 +16,7 @@ const CheckoutForm = ({price, cart}) => {
     const [clientSecret, setClientSecret] = useState("");
     const [processing, setProcessing] = useState(false)
     const navigate = useNavigate();
+    const [paymentError, setPaymentError] = useState('')
    // const [transactionId, setTransactionId] = useState('')
 
     useEffect(() => {
@@ -72,6 +73,7 @@ const CheckoutForm = ({price, cart}) => {
        });
 
      if (confirmError) {
+      setPaymentError(confirmError.message);
        console.log(confirmError);
        return;
      }
@@ -99,11 +101,20 @@ const CheckoutForm = ({price, cart}) => {
        .then(res => {
         if (res.data.insertResult.insertedId) {
          navigate("/dashboard/studentHome");  
-          Swal.fire({
-           
-            title: "Payment Success",
-            icon: "success",
-          });
+       //  console.log(payment)
+         const ids = payment.enrolledClassIds;
+
+         const body = ids
+         axiosSecure.post("/updateClassSeats", body).then((res) => {
+           console.log(res.data);
+           if(res.data.data.modifiedCount > 0){
+             Swal.fire({
+               title: "Payment Success",
+               icon: "success",
+             });
+           }
+         });
+         
         }
        })
    }
@@ -111,7 +122,7 @@ const CheckoutForm = ({price, cart}) => {
  //  console.log('cart',cart);
 
     return (
-      <div className="checkout_form" >
+      <div className="checkout_form">
         <form onSubmit={handleSubmit}>
           <CardElement
             options={{
@@ -129,15 +140,19 @@ const CheckoutForm = ({price, cart}) => {
               },
             }}
           />
-         
-            <button className="btn-green1"  type="submit" disabled={!stripe || !clientSecret || processing}>
-              Pay
-            </button>
-         
+
+          <button
+            className="btn-green1"
+            type="submit"
+            disabled={!stripe || !clientSecret || processing}
+          >
+            Pay
+          </button>
         </form>
         <div className="mt-2">
-            {cardError && <p className="text-red-600">{cardError}</p>}
+          {cardError && <p className="text-red-600">{cardError}</p>}
         </div>
+        {paymentError !== "" && <p className="text-red-600">{paymentError}</p>}
       </div>
     );
 };
