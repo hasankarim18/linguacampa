@@ -1,9 +1,12 @@
+import useAuth from "../../../../Hooks/useAuth";
 
 
 const AdminHome = () => {
+    const {user} = useAuth()
     return (
-        <div>
-            <h1 className="text-5xl text-red-400">Admin Home</h1>
+        <div className="p-8" >
+            <h1 className="text-5xl">{user.displayName}</h1>
+            <p className="text-xl">{user.email}</p>
         </div>
     );
 };

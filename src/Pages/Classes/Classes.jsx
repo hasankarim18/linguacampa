@@ -6,6 +6,7 @@ import useRole from "../../Hooks/useRole";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 
 const Classes = () => {
@@ -74,6 +75,9 @@ const Classes = () => {
     
     return (
       <div className="siteContainer">
+        <Helmet>
+          <title>Classes | LinguaCampa</title>
+        </Helmet>
         <SimpleBackdrop open={isLoading} />
         <SimpleBackdrop open={classSelectLoading} />
         <h2 className="text-3xl my-8 text-center">
@@ -82,7 +86,9 @@ const Classes = () => {
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid">
           {!isLoading &&
             data.map((item) => {
-              const seatLeft = parseInt((item.seats - item.enrolledStudents).toFixed(0))
+              const seatLeft = parseInt(
+                (item.seats - item.enrolledStudents).toFixed(0)
+              );
               return (
                 <div key={item._id}>
                   <div

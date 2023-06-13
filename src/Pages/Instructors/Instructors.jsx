@@ -1,17 +1,21 @@
 import { Box, Skeleton } from "@mui/material";
 import useDataProvider from "../../Hooks/useDataProvider";
 import HeadLine from "../../Utils/HeadLine";
+import { Helmet } from "react-helmet-async";
 
 const Instructors = () => {
   const { PopularInstructor, popularInstructorLoading } = useDataProvider();
 
   return (
     <div className="mt-16 siteContainer ">
+      <Helmet>
+        <title>Instructors | LinguaCampa</title>
+      </Helmet>
       <div className="">
         <HeadLine>Our Most Popular Insturctors</HeadLine>
       </div>
       <div>
-        <div className="mt-16" >
+        <div className="mt-16">
           {popularInstructorLoading ? (
             <>
               <div>
@@ -39,7 +43,7 @@ const Instructors = () => {
               <div className="grid text-darkNavyBlue dark:bg-darkNavyBlue dark-text-white grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {PopularInstructor.map((item) => {
                   return (
-                    <div                      
+                    <div
                       key={item.info._id}
                       className="card bg-base-100 shadow-xl dark:bg-darkNavyBlue dark:border dark:text-white"
                     >
