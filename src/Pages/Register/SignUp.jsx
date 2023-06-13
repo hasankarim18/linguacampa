@@ -249,16 +249,22 @@ const SignUp = () => {
       </Helmet>
 
       <SimpleBackdrop open={backDrop} />
-      <div className="w-full lg:w-1/2 mx-auto">
+      <div className="w-full lg:w-1/2 mx-auto text-darkNavyBlue dark:text-white">
         <h3 className="text-3xl">
-          *If you want to apply for Instructor plese sign up with email and password and check the apply for instructor button.
+          *If you want to apply for Instructor plese sign up with email and
+          password and check the apply for instructor button.
         </h3>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="text-darkNavyBlue dark:text-white "
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="card-body p-0">
             {/* #name */}
             <div className="form-control">
-              <label className="label text-xl">
-                <span className="label-text text-xl">Name*</span>
+              <label className="label text-xl text-darkNavyBlue dark:text-white">
+                <span className="label-text text-xl text-darkNavyBlue dark:text-white">
+                  Name*
+                </span>
               </label>
               <input
                 type="text"
@@ -269,16 +275,18 @@ const SignUp = () => {
                     setUserName(e.target.value);
                   },
                 })}
-                className="input input-bordered text-xl"
+                className="input text-darkNavyBlue dark:text-black input-bordered text-xl"
               />
             </div>
             {errors.name && (
               <div className="text-red-400">Name is required</div>
             )}
             {/* #email */}
-            <div className="form-control">
+            <div className="form-control text-darkNavyBlue dark:text-white ">
               <label className="label text-xl">
-                <span className="label-text text-xl">Email*</span>
+                <span className="label-text text-darkNavyBlue dark:text-white text-xl">
+                  Email*
+                </span>
               </label>
               <input
                 type="text"
@@ -290,7 +298,7 @@ const SignUp = () => {
                     setuserEmail(e.target.value);
                   },
                 })}
-                className="input input-bordered text-xl"
+                className="input text-darkNavyBlue dark:text-black input-bordered text-xl"
               />
             </div>
             <div className="py-1 text-red-400">
@@ -300,7 +308,9 @@ const SignUp = () => {
             {/* #photo url */}
             <div className="py-2">
               <label className="label text-xl">
-                <span className="label-text text-xl">Photo Url*</span>
+                <span className="label-text dark:text-white  text-xl">
+                  Photo Url*
+                </span>
               </label>
               <input
                 {...register("photo", {
@@ -310,7 +320,7 @@ const SignUp = () => {
                   },
                 })}
                 type="text"
-                className="input input-bordered w-full"
+                className="input dark:text-black input-bordered w-full"
                 placeholder="Photo Url"
               />
             </div>
@@ -318,8 +328,8 @@ const SignUp = () => {
               <div className="text-red-400">Photo Url Required</div>
             )}
             {/* #gender */}
-            <div className="py-2  flex gap-2">
-              <span>Gender</span>
+            <div className="py-2 text-darkNavyBlue dark:text-white flex gap-2">
+              <span className="text-darkNavyBlue dark:text-white">Gender</span>
               <input
                 id="male"
                 {...register("gender")}
@@ -344,9 +354,9 @@ const SignUp = () => {
             </div>
             {/* #phone */}
             <div className="py-2">
-              <span>Phone</span>
+              <span className="text-darkNavyBlue dark:text-white">Phone</span>
               <input
-                className="input input-bordered ms-2"
+                className="input dark:text-black input-bordered ms-2"
                 type="text"
                 {...register("phone")}
               />
@@ -355,7 +365,10 @@ const SignUp = () => {
             <div className="py-2">
               <div>
                 <span className="text-xl flex items-center wi-full  mb-1 ">
-                  <span> Apply for instructor position</span>
+                  <span className="text-darkNavyBlue dark:text-white">
+                    {" "}
+                    Apply for instructor position
+                  </span>
                   <input
                     {...register("applied", {
                       onChange: (e) => {
@@ -373,15 +386,16 @@ const SignUp = () => {
             {/* #password */}
             <div className="form-control">
               <label className="label text-xl">
-                <span className="label-text text-xl">Password*</span>
+                <span className="label-text text-darkNavyBlue dark:text-white text-xl">
+                  Password*
+                </span>
               </label>
               <div className="relative">
                 {/* #inputpassword */}
                 <input
-                  defaultValue="@aA123"
                   type={showPassword ? "text" : "password"}
                   placeholder="password"
-                  className="input input-bordered relative w-full text-xl"
+                  className="input dark:text-black input-bordered relative w-full text-xl"
                   {...register("password", {
                     onChange: (e) => {
                       passwordChangeHandler(e);
@@ -394,7 +408,9 @@ const SignUp = () => {
                   })}
                 />
                 <span
-                  className="absolute right-2 top-1/4 text-2xl cursor-pointer"
+                  className="absolute
+                   text-darkNavyBlue dark:text-black
+                   right-2 top-1/4 text-2xl cursor-pointer"
                   onClick={handleShowPassword}
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -412,15 +428,16 @@ const SignUp = () => {
             {/* #confirmPassword */}
             <div className="form-control">
               <label className="label text-xl">
-                <span className="label-text text-xl">Confirm Password*</span>
+                <span className="label-text text-darkNavyBlue dark:text-white text-xl">
+                  Confirm Password*
+                </span>
               </label>
               <div className="relative">
                 <input
-                  defaultValue="@aA123"
                   onChange={confirmPasswordChangeHandler}
                   type={confirmShowPassword ? "text" : "password"}
                   placeholder="Confirm Password"
-                  className="input input-bordered relative w-full text-xl"
+                  className="input dark:text-black input-bordered relative w-full text-xl"
                   {...register("confirm", {
                     onChange: (e) => {
                       confirmPasswordChangeHandler(e);
@@ -428,7 +445,9 @@ const SignUp = () => {
                   })}
                 />
                 <span
-                  className="absolute right-2 top-1/4 text-2xl cursor-pointer"
+                  className="absolute
+                   text-darkNavyBlue dark:text-black
+                    right-2 top-1/4 text-2xl cursor-pointer"
                   onClick={handleConfirmShowPassword}
                 >
                   {confirmShowPassword ? <FaEyeSlash /> : <FaEye />}

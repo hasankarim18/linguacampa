@@ -1,6 +1,10 @@
 
 ## Summer Camp Schoool (client side)
 
+#### 1. A website for extraciricular activities, in this website we teach students foreign languages by our experienced teacher.
+
+#### Any one can easily signed up 
+
 
 
 ### [vercel api hitpoint](https://linguacampa.vercel.app/)

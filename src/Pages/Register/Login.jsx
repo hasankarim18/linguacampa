@@ -150,7 +150,7 @@ const Login = () => {
 
 
   return (
-    <div className="siteContainer p-2">
+    <div className="siteContainer p-2 text-darkNavyBlue dark:text-darkNavyBlue">
       <div className="w-full lg:w-1/2 mx-auto">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="card-body p-0">
@@ -177,7 +177,6 @@ const Login = () => {
               </label>
               <div className="relative">
                 <input
-                  defaultValue="@aA123"
                   type={showPassword ? "text" : "password"}
                   placeholder="password"
                   className="input input-bordered relative w-full text-xl"
@@ -193,7 +192,7 @@ const Login = () => {
                   })}
                 />
                 <span
-                  className="absolute right-2 top-1/4 text-2xl cursor-pointer"
+                  className="absolute  text-darkNavyBlue dark:text-black right-2 top-1/4 text-2xl cursor-pointer"
                   onClick={handleShowPassword}
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}

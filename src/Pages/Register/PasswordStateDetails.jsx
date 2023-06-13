@@ -3,7 +3,7 @@ import { FaRegCheckSquare } from 'react-icons/fa';
 
 const PasswordStateDetails = ({ passwordStates }) => {
   return (
-    <div>
+    <div className="text-darkNavyBlue  dark:text-white" >
       <div className="py-2">
         <ul className="">
           <li className="flex gap-2 items-center">
